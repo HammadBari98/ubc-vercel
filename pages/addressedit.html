@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <link rel="stylesheet" href="../src/output.css">
+    <link rel="stylesheet" href="../src/input.css">
+    <link rel="stylesheet" href="../assests/css/index.css">
+    <style>
+      
+        .input-icon {
+            position: relative;
+        }
+        .input-icon svg {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+        .input-icon input {
+            padding-right: 40px !important;
+        }
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper .clear-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .select-wrapper .arrow-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
+        .custom-select {
+            padding-right: 35px;
+            padding-left: 35px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #F9FAFB;
+            border: 1px solid #F3F4F6;
+        }
+  
+   
+
+  
+    </style>
+</head>
+<body>
+    <nav dir="rtl" class="bg-white shadow-md z-50">
+        <div class="container mx-auto px-4">
+            <!-- Main Nav Container -->
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Left Section (Logo) -->
+                <a href="../index.html">
+                    <img src="../assests/images/logo-ar.svg" alt="Logo" class="h-10 md:h-12 z-50">
+                </a>
+
+                <!-- Middle Section (Desktop Navigation) -->
+                <div class="hidden lg:flex">
+                    <ul class="flex gap-6 xl:gap-8">
+                        <li class="navbarFonts"><a href="../index.html">الرئيسية</a></li>
+                        <li class="navbarFonts"><a href="../index.html">مياهنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html">منتجاتنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html">لماذا نحن</a></li>
+                        <li class="navbarFonts"><a href="../index.html">كيف تبدأ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Right Section (Desktop) -->
+                <div class="hidden lg:flex gap-6 items-center">
+
+                    <div class="relative ">
+                        <div class="flex items-center gap-2 justify-center">
+                            <button onclick="setupDropdown('anotherToggle','lang-dropdown')" class="cursor-pointer">
+                                <img id="anotherToggle" src="../assests/images/down-arrow.svg" alt="">
+                            </button>
+                            <img src="../assests/images/aen.svg" alt="">
+                            <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                        </div>
+                        <!-- language dropdown -->
+                        <div id="lang-dropdown"
+                            class="bg-white w-[150px] h-[106px] -left-10 language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-2 absolute">
+                            <div class="flex gap-2">
+                                <p>العربية</p>
+                                <img src="../assests/images/arabic-flag.svg" alt="">
+                            </div>
+                            <div class="flex gap-2">
+                                <p>English</p>
+                                <img src="../assests/images/english-flag.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <a href="upload.html">
+                            <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                            </a>
+                        <!-- bell-icon -->
+                    </div>
+
+                    <div class="relative">
+                        <!-- cart-icon -->
+                        <button id="notification-toggle"
+                            onclick="handleNotificationPopup('notification-toggle','empty-notification-popup')"
+                            class="cursor-pointer">
+                            <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                        </button>
+                        <!-- empty notification popup start here -->
+                        <div id="empty-notification-popup"
+                            class="bg-white w-[320px] min-h-[366px]  language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-6 absolute">
+                            <img src="../assests/images/no-notification.svg" alt="">
+                            <p>You currently have no notifications! 🕊️</p>
+                        </div>
+                        <!-- empty notification popup end here -->
+
+                        <!-- filled notification popup start here -->
+                        <div id="filled-notification-popup"
+                            class="px-[14px] py-[24px] bg-white min-w-[320px] min-h-[366px] right-0 language-change-dropdown rounded-[20px]  hidden flex-col gap-2 absolute">
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full relative flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        <div class="w-[10px] h-[10px] bg-[#F31629] absolute top-0 right-0 rounded-full">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">وصلت زجاجاتك المخصصة!</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">تم تسليم طلبك بنجاح. نتمنى أن تضيف
+                                        زجاجاتنا لمسة
+                                        مميزة
+                                        لمناسبتك! شكرًا لاختيارك لنا.</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    03:50 م
+                                </span>
+                            </div>
+                            <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">تذكير بموعد التوصيل</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">تذكير سريع! من المتوقع وصول طلبك
+                                        غدًا. تأكد من وجود
+                                        شخص
+                                        متاح للاستلام</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    منذ 1 د
+                                </span>
+                            </div>
+                            <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">تم شحن طلبك!</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                        تتبع شحنته ومشاهدة
+                                        تفاصيل التوصيل من خلال حسابك.</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    03:50 م
+                                </span>
+                            </div>
+                            <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">طلبك قيد المعالجة!</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                        تتبع شحنته ومشاهدة
+                                        تفاصيل التوصيل من خلال حسابك.</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    03:50 م
+                                </span>
+                            </div>
+                        </div>
+                        <!-- filled notification popup start here -->
+
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="openPopup" onclick="openPopup('loginPopup', 'loginOverlay')"
+                            class="cursor-pointer">سجل
+                            دخول</button>
+                        <div
+                            class="w-[44px] h-[44px] border flex border-[#E8E8E8] justify-center items-center rounded-full">
+                            <img src="../assests/images/login-user.svg" width="24" height="24" alt="">
+                        </div>
+                        <!-- login-button -->
+                    </div>
+
+                    <!-- login pop up which will open on click ==start here== -->
+
+                    <div id="loginOverlay" class="overlay hidden"></div>
+                    <div dir="rtl" id="loginPopup"
+                        class="popup bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[460px] w-[600px]  language-change-dropdown rounded-[20px] ">
+                        <div class="text-center mx-auto">
+                            <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                            <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                        </div>
+                        <div class="flex flex-col gap-8 mt-8">
+                            <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رقم جوالك لتسجيل الدخول
+                                لحسابك أو إنشاء
+                                حساب جديد.</p>
+                            <p class="text-[16px] font-[400] text-[#25324B]">رقم الهاتف</p>
+                        </div>
+                        <div class="flex justify-center gap-2 mt-8">
+                            <div
+                                class="w-[424px] relative h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7] ">
+                                <input type="text" class="border-none outline-0 w-[424px] px-10"
+                                    placeholder="أدخل رقم الهاتف">
+                                <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5" alt="">
+                            </div>
+                            <div
+                                class="w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7] ">
+                                <img src="../assests/images/countrySelectSA.svg" alt="">
+                                <span>+966</span>
+                            </div>
+                        </div>
+                        <div id="login-input-alert" class="flex gap-1.5 items-center mt-2">
+                            <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                            <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء حساب.
+                            </p>
+                        </div>
+                        <div class="flex justify-center items-center mt-8">
+                            <button onclick="openOtpPopup()" class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                                التالي
+                            </button>
+                        </div>
+                    </div>
+
+                    <div dir="ltr" id="otpPopup"
+                        class="popup bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[460px] w-[600px]  language-change-dropdown rounded-[20px] ">
+                        <div class="text-center mx-auto">
+                            <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                            <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                        </div>
+                        <div class="flex flex-col gap-8 mt-8">
+                            <div class="flex justify-end gap-1 items-center">
+                                <span>+966 596 338 44 65</span>
+                                <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رمز التحقق OTP المرسل على
+                                    الرقم </p>
+                            </div>
+                            <p class="text-[16px] font-[400] text-[#25324B] text-right">رقم الهاتف</p>
+                        </div>
+                        <div class="otp-container flex justify-center">
+                            <input type="text" class="otp-input" maxlength="1">
+                            <input type="text" class="otp-input" maxlength="1">
+                            <input type="text" class="otp-input" maxlength="1">
+                            <input type="text" class="otp-input" maxlength="1">
+                        </div>
+                        <div id="login-input-alert" class="flex justify-end gap-1.5 items-center mt-2">
+                            <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء حساب.
+                            </p>
+                            <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                        </div>
+                        <p class="text-[16px] mt-5 font-[400] text-[#25324B] text-right">إعادة الارسال</p>
+                        <div class="flex justify-center items-center mt-8">
+                            <button onclick="closeOtpPopup()" class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                                تسجيل دخول
+                            </button>
+                        </div>
+                    </div>
+                    <!-- login pop up which will open on click ==end here== -->
+                    <div>
+                        <button class="bg-primary text-primary ubc-btn-primary"
+                            onclick="window.location.href='#our-products'">أطلب كميتك الآن</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex">
+                    <button id="mobile-menu-button" class="p-2">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden lg:hidden absolute  bg-white w-full left-0 z-50 shadow-lg">
+                <div class="px-4 py-6 space-y-6">
+                    <!-- Mobile Navigation Links -->
+                    <ul class="flex flex-col gap-4">
+                        <li class="navbarFonts"><a href="../index.html">الرئيسية</a></li>
+                        <li class="navbarFonts"><a href="../index.html">مياهنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html">منتجاتنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html">لماذا نحن</a></li>
+                        <li class="navbarFonts"><a href="../index.html">كيف تبدأ</a></li>
+                    </ul>
+
+                    <!-- Mobile Right Section Content -->
+                    <div class="flex flex-col gap-6 md:items-center ">
+                        <div class="relative">
+                            <div class="flex md:items-center gap-2 md:justify-center">
+                                <button onclick="setupDropdown('mobile-toggle','mob-lang-dropdown')"
+                                    class="cursor-pointer">
+                                    <img id="mobile-toggle" src="../assests/images/down-arrow.svg" alt="">
+                                </button>
+                                <img src="../assests/images/aen.svg" alt="">
+                                <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                            </div>
+                            <!-- language dropdown -->
+                            <div id="mob-lang-dropdown"
+                                class="bg-white w-[150px] z-50 h-[106px] right-0 language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-2 absolute">
+                                <div class="flex gap-2">
+                                    <p>العربية</p>
+                                    <img src="../assests/images/arabic-flag.svg" alt="">
+                                </div>
+                                <div class="flex gap-2">
+                                    <p>English</p>
+                                    <img src="../assests/images/english-flag.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+
+                            <a href="upload.html">
+                                <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                                </a>
+                            <!-- bell-icon -->
+                        </div>
+
+                        <div class="relative">
+                            <!-- cart-icon -->
+                            <button id="mob-notification-toggle"
+                                onclick="handleNotificationPopup('mob-notification-toggle','mob-empty-notification-popup')"
+                                class="cursor-pointer">
+                                <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                            </button>
+                            <!-- empty notification popup start here -->
+                            <div id="mob-empty-notification-popup"
+                                class="bg-white w-[320px] min-h-[366px]  language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col -bottom-28 right-[27px] gap-6 absolute">
+                                <img src="../assests/images/no-notification.svg" alt="">
+                                <p>You currently have no notifications! 🕊️</p>
+                            </div>
+                            <!-- empty notification popup end here -->
+
+                            <!-- filled notification popup start here -->
+                            <div id="filled-notification-popup"
+                                class="px-[14px] py-[24px] bg-white min-w-[320px] min-h-[366px] right-0 language-change-dropdown rounded-[20px]  hidden flex-col gap-2 absolute">
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full relative flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                            <div
+                                                class="w-[10px] h-[10px] bg-[#F31629] absolute top-0 right-0 rounded-full">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">وصلت زجاجاتك المخصصة!</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">تم تسليم طلبك بنجاح. نتمنى أن
+                                            تضيف زجاجاتنا لمسة
+                                            مميزة
+                                            لمناسبتك! شكرًا لاختيارك لنا.</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        03:50 م
+                                    </span>
+                                </div>
+                                <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">تذكير بموعد التوصيل</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">تذكير سريع! من المتوقع وصول
+                                            طلبك غدًا. تأكد من وجود
+                                            شخص
+                                            متاح للاستلام</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        منذ 1 د
+                                    </span>
+                                </div>
+                                <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">تم شحن طلبك!</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                            تتبع شحنته ومشاهدة
+                                            تفاصيل التوصيل من خلال حسابك.</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        03:50 م
+                                    </span>
+                                </div>
+                                <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">طلبك قيد المعالجة!</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                            تتبع شحنته ومشاهدة
+                                            تفاصيل التوصيل من خلال حسابك.</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        03:50 م
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- filled notification popup start here -->
+
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <button id="mob-openPopup" onclick="openPopup('mob-loginPopup', 'mob-loginOverlay')"
+                                class="cursor-pointer">سجل دخول</button>
+                            <div
+                                class="w-[44px] h-[44px] border flex border-[#E8E8E8] justify-center items-center rounded-full">
+                                <img src="../assests/images/login-user.svg" width="24" height="24" alt="">
+                            </div>
+                            <!-- login-button -->
+                        </div>
+
+                        <!-- login pop up which will open on click ==start here== -->
+
+                        <div id="mob-loginOverlay" class="overlay hidden "></div>
+                        <div dir="rtl" id="mob-loginPopup"
+                            class="popup bg-white p-[32px] hidden flex-col w-[95%]  language-change-dropdown rounded-[20px] ">
+                            <div class="text-center mx-auto">
+                                <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                                <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                            </div>
+                            <div class="flex flex-col gap-8 mt-8">
+                                <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رقم جوالك لتسجيل الدخول
+                                    لحسابك أو إنشاء
+                                    حساب جديد.</p>
+                                <p class="text-[16px] font-[400] text-[#25324B]">رقم الهاتف</p>
+                            </div>
+                            <!-- <div class="flex justify-center gap-2 mt-8">
+                      <div class=" relative h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7] ">
+                        <input type="text" class="border-none outline-0  px-10" placeholder="أدخل رقم الهاتف" >
+                        <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5" alt="">
+                      </div>
+                      <div class="w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7] ">
+                        <img src="../assests/images/countrySelectSA.svg" alt="">
+                        <span>+966</span>
+                      </div>
+                    </div> -->
+                            <div class="flex flex-col sm:flex-row justify-center gap-2 mt-8 w-full px-4">
+                                <!-- Input Field -->
+                                <div
+                                    class="relative w-full sm:w-auto h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7]">
+                                    <input type="text"
+                                        class="w-full sm:w-auto border-none outline-0 px-10 py-2 text-center sm:text-left"
+                                        placeholder="أدخل رقم الهاتف">
+                                    <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5"
+                                        alt="">
+                                </div>
+
+                                <!-- Country Code Selector -->
+                                <div
+                                    class="w-full sm:w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7]">
+                                    <img src="../assests/images/countrySelectSA.svg" alt="">
+                                    <span>+966</span>
+                                </div>
+                            </div>
+
+                            <div id="login-input-alert" class="flex gap-1.5 items-center mt-2">
+                                <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                                <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء
+                                    حساب.</p>
+                            </div>
+                            <div class="flex justify-center items-center mt-8">
+                                <button class="w-full ubc-btn-primary bg-primary text-primary">
+                                    التالي
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- login pop up which will open on click ==end here== -->
+
+                        <div>
+                            <button class="bg-primary text-primary ubc-btn-primary">أطلب كميتك الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="w-full mx-auto p-5 max-w-[1536px] my-10">
+        <div class=" mx-auto border-[1px] border-[#E4E5E8] p-10 rounded-[22px]">
+            <div class="overflow-x-auto" dir="ltr">
+                <table class="w-full text-right border-separate border-spacing-y-4 ">
+                    <thead class="table-header-group">
+                        <tr class="text-gray-500 font-semibold text-sm">
+                            <th class="w-1/12"></th>
+
+                            <th class="w-1/4 text-[#25324B] text-[14px] font-[400] text-center">إسم العنوان</th>
+                            <th class="w-1/4 text-[#25324B] text-[14px] font-[400] text-center">المدينة</th>
+                            <th class="w-1/4 text-[#25324B] text-[14px] font-[400]">وصف العنوان</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr>
+                            <td colspan="4">
+                            <form class="form-container mt-5 mb-5 ">
+                                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                                    <div class="form-group">
+                                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">إسم العنوان</label>
+                                        <div class="input-icon">
+                                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12.1317 13.4993C13.8548 13.4993 15.2517 12.1024 15.2517 10.3793C15.2517 8.65615 13.8548 7.25928 12.1317 7.25928C10.4086 7.25928 9.01172 8.65615 9.01172 10.3793C9.01172 12.1024 10.4086 13.4993 12.1317 13.4993Z" stroke="#394149" stroke-width="1.5"/>
+                                                <path d="M3.75447 8.55983C5.72447 -0.100173 18.5545 -0.0901732 20.5145 8.56983C21.6645 13.6498 18.5045 17.9498 15.7345 20.6098C13.7245 22.5498 10.5445 22.5498 8.52448 20.6098C5.76448 17.9498 2.60447 13.6398 3.75447 8.55983Z" stroke="#394149" stroke-width="1.5"/>
+                                                </svg>
+                                                
+                        
+                                            <input type="text" class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]" placeholder="المنزل" required>
+                                          
+                                        </div>
+                                    
+                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">المدينة</label>
+                                        <div class="input-icon">
+                                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12.1317 13.4993C13.8548 13.4993 15.2517 12.1024 15.2517 10.3793C15.2517 8.65615 13.8548 7.25928 12.1317 7.25928C10.4086 7.25928 9.01172 8.65615 9.01172 10.3793C9.01172 12.1024 10.4086 13.4993 12.1317 13.4993Z" stroke="#394149" stroke-width="1.5"/>
+                                                <path d="M3.75447 8.55983C5.72447 -0.100173 18.5545 -0.0901732 20.5145 8.56983C21.6645 13.6498 18.5045 17.9498 15.7345 20.6098C13.7245 22.5498 10.5445 22.5498 8.52448 20.6098C5.76448 17.9498 2.60447 13.6398 3.75447 8.55983Z" stroke="#394149" stroke-width="1.5"/>
+                                                </svg>
+                                                
+                                            <input type="text" class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]" placeholder="الرياض" required>
+                                        
+                                        </div>
+                                
+                        
+                                    </div>
+                                  
+                                </div>
+                        
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                              
+                        
+                                <div class="form-group ">
+                                    <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">وصف العنوان</label>
+                                  
+                                    <div class="input-icon">
+                                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.16309 11.4814C4.16309 11.2825 4.2421 11.0918 4.38276 10.9511C4.52341 10.8105 4.71417 10.7314 4.91309 10.7314C5.112 10.7314 5.30276 10.8105 5.44342 10.9511C5.58407 11.0918 5.66309 11.2825 5.66309 11.4814V20.4814C5.66309 20.6194 5.77509 20.7314 5.91309 20.7314H19.7951C19.8614 20.7314 19.925 20.7051 19.9719 20.6582C20.0187 20.6113 20.0451 20.5478 20.0451 20.4814V11.4814C20.0451 11.2825 20.1241 11.0918 20.2648 10.9511C20.4054 10.8105 20.5962 10.7314 20.7951 10.7314C20.994 10.7314 21.1848 10.8105 21.3254 10.9511C21.4661 11.0918 21.5451 11.2825 21.5451 11.4814V20.4814C21.5451 20.9456 21.3607 21.3907 21.0325 21.7189C20.7043 22.0471 20.2592 22.2314 19.7951 22.2314H5.91309C5.44896 22.2314 5.00384 22.0471 4.67565 21.7189C4.34746 21.3907 4.16309 20.9456 4.16309 20.4814V11.4814Z" fill="#474647"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.45732 21.4816V15.2456C9.45732 14.1826 10.3193 13.3196 11.3833 13.3196H14.3253C15.3893 13.3196 16.2513 14.1826 16.2513 15.2456V21.4816C16.2513 21.6805 16.1723 21.8713 16.0317 22.0119C15.891 22.1526 15.7002 22.2316 15.5013 22.2316H10.2073C10.0084 22.2316 9.81764 22.1526 9.67699 22.0119C9.53634 21.8713 9.45732 21.6805 9.45732 21.4816ZM10.9573 20.7316H14.7513V15.2456C14.7513 15.1897 14.7403 15.1343 14.7189 15.0826C14.6975 15.0309 14.6661 14.9839 14.6265 14.9444C14.587 14.9048 14.54 14.8735 14.4883 14.852C14.4367 14.8306 14.3813 14.8196 14.3253 14.8196H11.3833C11.2703 14.8196 11.162 14.8645 11.0821 14.9444C11.0022 15.0243 10.9573 15.1326 10.9573 15.2456V20.7316ZM5.58532 11.8386C5.10014 12.1472 4.51423 12.2557 3.95074 12.1412C3.38725 12.0268 2.89005 11.6984 2.56364 11.225C2.23723 10.7517 2.10703 10.1702 2.2004 9.60286C2.29377 9.0355 2.60343 8.52642 3.06432 8.18262L11.5933 2.30062C11.9641 2.04475 12.4039 1.90771 12.8543 1.90771C13.3048 1.90771 13.7446 2.04475 14.1153 2.30062L22.6443 8.18262C23.1052 8.52642 23.4149 9.0355 23.5082 9.60286C23.6016 10.1702 23.4714 10.7517 23.145 11.225C22.8186 11.6984 22.3214 12.0268 21.7579 12.1412C21.1944 12.2557 20.6085 12.1472 20.1233 11.8386L12.8543 6.82562L5.58532 11.8386ZM4.73432 10.6036L12.4283 5.29762C12.5536 5.21118 12.7021 5.16489 12.8543 5.16489C13.0065 5.16489 13.1551 5.21118 13.2803 5.29762L20.9743 10.6036C21.1316 10.7122 21.3256 10.7539 21.5136 10.7195C21.7016 10.6851 21.8682 10.5774 21.9768 10.4201C22.0854 10.2628 22.1271 10.0689 22.0927 9.88087C22.0583 9.69286 21.9506 9.52623 21.7933 9.41762L13.2633 3.53562C13.1431 3.45262 13.0004 3.40817 12.8543 3.40817C12.7082 3.40817 12.5656 3.45262 12.4453 3.53562L3.91532 9.41762C3.75805 9.52623 3.65036 9.69286 3.61595 9.88087C3.58153 10.0689 3.62322 10.2628 3.73182 10.4201C3.84043 10.5774 4.00706 10.6851 4.19507 10.7195C4.38307 10.7539 4.57705 10.7122 4.73432 10.6036Z" fill="#474647"/>
+                                            </svg>   
+                                        <input type="text" class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]" placeholder="شارع الملك عبدالله، حي النرجس، الرياض" required>
+                                    
+                                    </div>
+                                  </div>
+                        
+                                  <div class="form-group mt-1">
+                                    <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">العنوان</label>
+                                    <div class="mapouter"><div class="gmap_canvas mt-5"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=533&amp;height=240&amp;hl=en&amp;q=mecca&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://sprunkin.com/">Sprunki Phases</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:240px;border-radius: 15px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:240px;}.gmap_iframe {height:240px!important;}</style></div>
+                        
+                                </div>
+                                </div>
+                        <a href="address.html">
+                                <button type="submit" onclick="hideEditForm()" class="mt-10 block bg-primary text-primary ubc-btn-primary text-center mx-auto">
+                                    حفظ العنوان
+                                </button>
+                            </a>
+                            </form>
+                        </td>
+                        </tr>
+
+                        <tr class="bg-[#F9FAFC] border border-gray-200 rounded-lg ">
+                            
+                            <td class=" text-center p-10">
+                                <div class="flex gap-2">
+                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="showEditForm()" class="cursor-pointer">
+                                        <g clip-path="url(#clip0_282_17111)">
+                                        <path d="M12.5703 13.9872C12.3578 14.1991 12.0991 14.359 11.8145 14.4543L9.07994 15.3658C8.88282 15.4316 8.67636 15.4651 8.46854 15.4651C7.95201 15.4651 7.46642 15.2639 7.10123 14.8987C6.57998 14.3773 6.40105 13.6192 6.63416 12.9199L7.5457 10.1855C7.64091 9.90084 7.80078 9.64214 8.01277 9.42966L13.919 3.52344H2.36328C1.06017 3.52344 0 4.58361 0 5.88672V19.6367C0 20.9398 1.06017 22 2.36328 22H16.1133C17.4164 22 18.4766 20.9398 18.4766 19.6367V8.08096L12.5703 13.9872Z" fill="#4E5EA5"/>
+                                        <path d="M8.92449 10.3407C8.85374 10.4115 8.80044 10.4977 8.76882 10.5927L7.85728 13.3271C7.81944 13.4407 7.81396 13.5625 7.84147 13.679C7.86897 13.7955 7.92836 13.902 8.013 13.9867C8.09763 14.0713 8.20416 14.1307 8.32064 14.1582C8.43713 14.1857 8.55898 14.1802 8.67253 14.1424L11.4071 13.2309C11.502 13.1993 11.5882 13.146 11.659 13.0752L19.7106 5.0236L16.9762 2.28911L8.92449 10.3407ZM20.4702 0.31414C20.0507 -0.105364 19.3705 -0.105364 18.951 0.31414L17.8876 1.37757L20.6221 4.1121L21.6856 3.04867C22.1051 2.62917 22.1051 1.94901 21.6856 1.52951L20.4702 0.31414Z" fill="#4E5EA5"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_282_17111">
+                                        <rect width="22" height="22" fill="white"/>
+                                        </clipPath>
+                                        </defs>
+                                        </svg>
+                                        
+                                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="gap-2">
+                                            <path d="M2.67287 6.44531L3.81451 20.2269C3.89632 21.2208 4.74289 22 5.74054 22H16.2595C17.2572 22 18.1037 21.2208 18.1855 20.2269L19.3271 6.44531H2.67287ZM7.77674 19.4219C7.43935 19.4219 7.1555 19.1594 7.1341 18.8176L6.48957 8.41917C6.46753 8.06356 6.73754 7.75766 7.09255 7.73562C7.46075 7.7098 7.75345 7.98299 7.7761 8.3386L8.42063 18.737C8.44345 19.1053 8.15207 19.4219 7.77674 19.4219ZM11.6445 18.7773C11.6445 19.1336 11.3563 19.4219 11 19.4219C10.6437 19.4219 10.3555 19.1336 10.3555 18.7773V8.37891C10.3555 8.02265 10.6437 7.73438 11 7.73438C11.3563 7.73438 11.6445 8.02265 11.6445 8.37891V18.7773ZM15.5104 8.41921L14.8659 18.8176C14.8447 19.156 14.5627 19.4379 14.1824 19.4206C13.8273 19.3986 13.5573 19.0927 13.5794 18.7371L14.2239 8.33864C14.2459 7.98304 14.5575 7.72432 14.9074 7.73566C15.2625 7.75771 15.5325 8.0636 15.5104 8.41921ZM19.3789 2.57812H15.5117V1.93359C15.5117 0.867367 14.6444 0 13.5781 0H8.42188C7.35565 0 6.48828 0.867367 6.48828 1.93359V2.57812H2.62109C1.90914 2.57812 1.33203 3.15524 1.33203 3.86719C1.33203 4.57905 1.90914 5.15625 2.62109 5.15625H19.3789C20.0909 5.15625 20.668 4.57905 20.668 3.86719C20.668 3.15524 20.0909 2.57812 19.3789 2.57812ZM14.2227 2.57812H7.77734V1.93359C7.77734 1.57798 8.06627 1.28906 8.42188 1.28906H13.5781C13.9337 1.28906 14.2227 1.57798 14.2227 1.93359V2.57812Z" fill="#F15353"/>
+                                            </svg>
+                                            
+                                </div>
+                            </td>
+                            <td class="text-[#7E7E7E] text-[14px] font-[400] text-center">شارع الملك عبدالله، حي النرجس، الرياض</td>
+                            <td class="text-[#7E7E7E] text-[14px] font-[400] text-center">
+                                <span class="text-gray-700 text-sm sm:text-base">الرياض</span>
+                            </td>
+                            <td class="text-[#7E7E7E] text-[14px] font-[400] justify-end">
+                                <span class="text-gray-700 text-sm sm:text-base">المنزل</span>
+                            </td>
+
+                            
+                        </tr>
+              
+                        <tr class="bg-[#F9FAFC] border border-gray-200 rounded-lg" >
+                            <td class="p-10 text-center">
+                                <div class="flex gap-2">
+                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                        <g clip-path="url(#clip0_282_17111)">
+                                        <path d="M12.5703 13.9872C12.3578 14.1991 12.0991 14.359 11.8145 14.4543L9.07994 15.3658C8.88282 15.4316 8.67636 15.4651 8.46854 15.4651C7.95201 15.4651 7.46642 15.2639 7.10123 14.8987C6.57998 14.3773 6.40105 13.6192 6.63416 12.9199L7.5457 10.1855C7.64091 9.90084 7.80078 9.64214 8.01277 9.42966L13.919 3.52344H2.36328C1.06017 3.52344 0 4.58361 0 5.88672V19.6367C0 20.9398 1.06017 22 2.36328 22H16.1133C17.4164 22 18.4766 20.9398 18.4766 19.6367V8.08096L12.5703 13.9872Z" fill="#4E5EA5"/>
+                                        <path d="M8.92449 10.3407C8.85374 10.4115 8.80044 10.4977 8.76882 10.5927L7.85728 13.3271C7.81944 13.4407 7.81396 13.5625 7.84147 13.679C7.86897 13.7955 7.92836 13.902 8.013 13.9867C8.09763 14.0713 8.20416 14.1307 8.32064 14.1582C8.43713 14.1857 8.55898 14.1802 8.67253 14.1424L11.4071 13.2309C11.502 13.1993 11.5882 13.146 11.659 13.0752L19.7106 5.0236L16.9762 2.28911L8.92449 10.3407ZM20.4702 0.31414C20.0507 -0.105364 19.3705 -0.105364 18.951 0.31414L17.8876 1.37757L20.6221 4.1121L21.6856 3.04867C22.1051 2.62917 22.1051 1.94901 21.6856 1.52951L20.4702 0.31414Z" fill="#4E5EA5"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_282_17111">
+                                        <rect width="22" height="22" fill="white"/>
+                                        </clipPath>
+                                        </defs>
+                                        </svg>
+                                        
+                                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="gap-2">
+                                            <path d="M2.67287 6.44531L3.81451 20.2269C3.89632 21.2208 4.74289 22 5.74054 22H16.2595C17.2572 22 18.1037 21.2208 18.1855 20.2269L19.3271 6.44531H2.67287ZM7.77674 19.4219C7.43935 19.4219 7.1555 19.1594 7.1341 18.8176L6.48957 8.41917C6.46753 8.06356 6.73754 7.75766 7.09255 7.73562C7.46075 7.7098 7.75345 7.98299 7.7761 8.3386L8.42063 18.737C8.44345 19.1053 8.15207 19.4219 7.77674 19.4219ZM11.6445 18.7773C11.6445 19.1336 11.3563 19.4219 11 19.4219C10.6437 19.4219 10.3555 19.1336 10.3555 18.7773V8.37891C10.3555 8.02265 10.6437 7.73438 11 7.73438C11.3563 7.73438 11.6445 8.02265 11.6445 8.37891V18.7773ZM15.5104 8.41921L14.8659 18.8176C14.8447 19.156 14.5627 19.4379 14.1824 19.4206C13.8273 19.3986 13.5573 19.0927 13.5794 18.7371L14.2239 8.33864C14.2459 7.98304 14.5575 7.72432 14.9074 7.73566C15.2625 7.75771 15.5325 8.0636 15.5104 8.41921ZM19.3789 2.57812H15.5117V1.93359C15.5117 0.867367 14.6444 0 13.5781 0H8.42188C7.35565 0 6.48828 0.867367 6.48828 1.93359V2.57812H2.62109C1.90914 2.57812 1.33203 3.15524 1.33203 3.86719C1.33203 4.57905 1.90914 5.15625 2.62109 5.15625H19.3789C20.0909 5.15625 20.668 4.57905 20.668 3.86719C20.668 3.15524 20.0909 2.57812 19.3789 2.57812ZM14.2227 2.57812H7.77734V1.93359C7.77734 1.57798 8.06627 1.28906 8.42188 1.28906H13.5781C13.9337 1.28906 14.2227 1.57798 14.2227 1.93359V2.57812Z" fill="#F15353"/>
+                                            </svg>      
+                                </div>
+                            </td>
+                            <td class="text-[#7E7E7E] text-[14px] font-[400] text-center">شارع الملك عبدالله، حي النرجس، الرياض</td>
+                            <td class="text-[#7E7E7E] text-[14px] font-[400] text-center">
+                                <span class="text-gray-700 text-sm sm:text-base">الرياض</span>
+                            </td>
+                            <td class="text-[#7E7E7E] text-[14px] font-[400] justify-end">
+                                <span class="text-gray-700 text-sm sm:text-base">المنزل</span>
+                       
+                            </td>
+                            
+                        </tr>
+         
+                  
+                       
+                    </tbody>
+                </table>
+            </div>
+      
+           
+
+         
+        </div>
+    </div>
+
+    <div class="flex justify-center my-28 px-5">
+        <img src="../assests/images/home-footer-banner.svg" alt="">
+      </div>
+
+      <footer dir="rtl" class="bg-[#5660A8] w-full text-white py-10">
+        <div class="max-w-[1536px] mx-auto px-5 grid grid-cols-1 md:grid-cols-12 gap-8">
+            <!-- Left Section -->
+            <div class="md:col-span-7 flex flex-col md:flex-row gap-8 md:gap-[40px] justify-center">
+                <!-- Logo & Social -->
+                <div class="text-center md:text-left">
+                    <img src="../assests/images/footer-logo.svg" alt="" class="mx-auto md:mx-0">
+                    <div class="flex gap-4 justify-center md:justify-start mt-4">
+                        <img src="../assests/images/youtubeIcon.svg" alt="">
+                        <img src="../assests/images/xIcon.svg" alt="">
+                        <img src="../assests/images/facebookIcon.svg" alt="">
+                        <img src="../assests/images/instagramIcon.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Links Container -->
+                <div class="flex flex-col sm:flex-row gap-8 md:gap-16 justify-center">
+                    <!-- Useful Links -->
+                    <div class="text-center md:text-right">
+                        <h3 class="text-lg font-semibold mb-3">روابط مفيدة</h3>
+                        <ul class="space-y-2">
+                            <li><a href="../index.html" class="hover:underline">تواصل معنا</a></li>
+                            <li><a href="who-we-are.html" class="hover:underline">من نحن</a></li>
+                            <li><a href="terms-and-condition.html" class="hover:underline">الشروط والأحكام</a>
+                            </li>
+                            <li><a href="privacy-policy.html" class="hover:underline">سياسة الخصوصية</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Shopping Links -->
+                    <div class="text-center md:text-right">
+                        <h3 class="text-lg font-semibold mb-3">التسوق</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:underline">اطلب كميتك الآن</a></li>
+                            <li><a href="#" class="hover:underline">المنتجات</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Site Navigation -->
+                    <div class="text-center md:text-right">
+                        <h3 class="text-lg font-semibold mb-3">في الموقع</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:underline">الرئيسية</a></li>
+                            <li><a href="#" class="hover:underline">مياهنا</a></li>
+                            <li><a href="#" class="hover:underline">منتجاتنا</a></li>
+                            <li><a href="#" class="hover:underline">لماذا نحن</a></li>
+                            <li><a href="#" class="hover:underline">كيف تبدأ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Download Section -->
+            <div
+                class="md:col-span-5 py-5 md:py-0 text-center md:text-right px-4 md:px-[23px] h-auto md:h-[202px] w-full md:w-[429px] rounded-[20px] bg-[#FFFFFF1A] flex flex-col justify-center items-center mx-auto">
+                <p class="text-lg mb-4 px-2 md:px-0">
+                    حمل تطبيقنا الآن وابدأ بالتميز! زجاجات مياه مصممة لك، تجربة سهلة وممتعة بين يديك 💧
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                    <button
+                        class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                        <img src="../assests/images/Apple_App_Store.svg" alt="App Store" width="20">
+                        App Store
+                    </button>
+                    <button
+                        class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                        <img src="../assests/images/Google_Play.svg" alt="Play Store" width="20">
+                        Play Store
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="max-w-[1536px] mx-auto mt-10 md:mt-20">
+            <p class="text-center md:text-right mx-4 md:mx-36 text-sm md:text-base">جميع الحقوق محفوظة لدى شركة المتحدة
+                للمرطبات 2024 ©</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Include your existing dropdown functions here
+        function setupDropdown(toggleId, dropdownId) {
+            // ... your existing dropdown code ...
+        }
+
+        function handleNotificationPopup(toggleId, popupId) {
+            // ... your existing notification code ...
+        }
+    </script>
+</body>
+
+<script>
+function showEditForm() {
+    document.getElementById('editModal').classList.remove('hidden');
+}
+
+function hideEditForm() {
+    document.getElementById('editModal').classList.add('hidden');
+}
+</script>
+
+</html>

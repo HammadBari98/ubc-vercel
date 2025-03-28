@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الطلب</title>
+    <link rel="stylesheet" href="../src/output.css">
+    <link rel="stylesheet" href="../assests/css/index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         .input-icon {
+            position: relative;
+        }
+        .input-icon svg {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+        .input-icon input {
+            padding-right: 40px !important;
+        }
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper .clear-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .select-wrapper .arrow-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
+        .custom-select {
+            padding-right: 35px;
+            padding-left: 35px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #F9FAFB;
+            border: 1px solid #F3F4F6;
+        }
+        input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4E5EA5;
+            border-radius: 50%;
+            margin-left: 8px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked {
+            border: 2px solid #4E5EA5;
+        }
+
+        input[type="radio"]:checked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: #4E5EA5;
+            border-radius: 50%;
+        }
+
+      /* Calendar styles */
+      .calendar-popup {
+            display: none;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        .calendar-popup.show {
+            display: block;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+            text-align: center;
+        }
+
+        .day-header {
+            color: #3C3C434D;
+            font-size: 13px;
+            padding: 8px 0;
+            font-weight: 600;
+        }
+
+        .calendar-day {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #27272a;
+            margin: 1px;
+            font-weight: 400;
+        }
+
+        .calendar-day:hover:not(.empty) {
+            background-color: #f4f4f5;
+            border-radius: 4px;
+        }
+
+        .calendar-day.selected {
+            background-color: #EBEEFF;
+            color: #4E5EA5;
+            border-radius: 22px;
+            font-weight: 500;
+            
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+        }
+
+        .month-nav {
+            color: #71717a;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .month-nav:hover {
+            background-color: #f4f4f5;
+        }
+
+        .close-btn {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #71717a;
+        }
+
+        .close-btn:hover {
+            background-color: #f4f4f5;
+        }
+    </style>
+</head>
+<body class="">
+
+    <!-- Navbar Container start here -->
+    <nav dir="rtl" class="bg-white shadow-md z-50">
+        <div class="container mx-auto px-4">
+            <!-- Main Nav Container -->
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Left Section (Logo) -->
+                <a href="../index.html">
+                    <img src="../assests/images/logo-ar.svg" alt="Logo" class="h-10 md:h-12 z-50">
+                </a>
+
+                <!-- Middle Section (Desktop Navigation) -->
+                <div class="hidden lg:flex">
+                    <ul class="flex gap-6 xl:gap-8">
+                        <li class="navbarFonts"><a href="../index.html">الرئيسية</a></li>
+                        <li class="navbarFonts"><a href="../index.html">مياهنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html">منتجاتنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html" dir="ltr">لماذا نحن</a></li>
+                        <li class="navbarFonts"><a href="../index.html">كيف تبدأ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Right Section (Desktop) -->
+                <div class="hidden lg:flex gap-6 items-center">
+
+                    <div class="relative ">
+                        <!-- <div class="flex items-center gap-2 justify-center">
+                            <button onclick="setupDropdown('anotherToggle','lang-dropdown')" class="cursor-pointer">
+                                <img id="anotherToggle" src="../assests/images/down-arrow.svg" alt="">
+                            </button>
+                            <img src="../assests/images/aen.svg" alt="">
+                            <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                        </div>
+                        <div id="lang-dropdown"
+                            class="bg-white w-[150px] h-[106px] -left-10 language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-2 absolute">
+                            <div class="flex gap-2">
+                                <p>العربية</p>
+                                <img src="../assests/images/arabic-flag.svg" alt="">
+                            </div>
+                            <div class="flex gap-2">
+                                <p>English</p>
+                                <img src="../assests/images/english-flag.svg" alt="">
+                            </div>
+                        </div> -->
+                        <div class="gtranslate_wrapper"></div>
+                        <script>window.gtranslateSettings = {"default_language":"ar","languages":["ar","en"],"wrapper_selector":".gtranslate_wrapper"}</script>
+                        <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>    
+                    </div>
+
+                    <div>
+
+                        <a href="upload.html">
+                            <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                            </a>
+                        <!-- bell-icon -->
+                    </div>
+
+                    <div class="relative">
+                        <!-- cart-icon -->
+                        <button id="notification-toggle"
+                            onclick="handleNotificationPopup('notification-toggle','empty-notification-popup')"
+                            class="cursor-pointer">
+                            <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                        </button>
+                        <!-- empty notification popup start here -->
+                        <div id="empty-notification-popup"
+                            class="bg-white w-[320px] min-h-[366px]  language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-6 absolute">
+                            <img src="../assests/images/no-notification.svg" alt="">
+                            <p>You currently have no notifications! 🕊️</p>
+                        </div>
+                        <!-- empty notification popup end here -->
+
+                        <!-- filled notification popup start here -->
+                        <div id="filled-notification-popup"
+                            class="px-[14px] py-[24px] bg-white min-w-[320px] min-h-[366px] right-0 language-change-dropdown rounded-[20px]  hidden flex-col gap-2 absolute">
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full relative flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        <div class="w-[10px] h-[10px] bg-[#F31629] absolute top-0 right-0 rounded-full">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">وصلت زجاجاتك المخصصة!</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">تم تسليم طلبك بنجاح. نتمنى أن تضيف
+                                        زجاجاتنا لمسة
+                                        مميزة
+                                        لمناسبتك! شكرًا لاختيارك لنا.</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    03:50 م
+                                </span>
+                            </div>
+                            <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">تذكير بموعد التوصيل</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">تذكير سريع! من المتوقع وصول طلبك
+                                        غدًا. تأكد من وجود
+                                        شخص
+                                        متاح للاستلام</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    منذ 1 د
+                                </span>
+                            </div>
+                            <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">تم شحن طلبك!</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                        تتبع شحنته ومشاهدة
+                                        تفاصيل التوصيل من خلال حسابك.</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    03:50 م
+                                </span>
+                            </div>
+                            <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                            <div class="flex relative gap-3">
+                                <div>
+                                    <div
+                                        class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                        <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-1 ">
+                                    <p class="font-[600] text-[16px] ">طلبك قيد المعالجة!</p>
+                                    <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                        تتبع شحنته ومشاهدة
+                                        تفاصيل التوصيل من خلال حسابك.</p>
+                                </div>
+                                <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                    03:50 م
+                                </span>
+                            </div>
+                        </div>
+                        <!-- filled notification popup start here -->
+
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="openPopup" onclick="openPopup('loginPopup', 'loginOverlay')"
+                            class="cursor-pointer">سجل
+                            دخول</button>
+                        <div
+                            class="w-[44px] h-[44px] border flex border-[#E8E8E8] justify-center items-center rounded-full">
+                            <img src="../assests/images/login-user.svg" width="24" height="24" alt="">
+                        </div>
+                        <!-- login-button -->
+                    </div>
+
+                    <!-- login pop up which will open on click ==start here== -->
+
+                    <div id="loginOverlay" class="overlay hidden"></div>
+                    <div dir="rtl" id="loginPopup"
+                        class="popup bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[460px] w-[600px]  language-change-dropdown rounded-[20px] ">
+                        <div class="text-center mx-auto">
+                            <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                            <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                        </div>
+                        <div class="flex flex-col gap-8 mt-8">
+                            <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رقم جوالك لتسجيل الدخول
+                                لحسابك أو إنشاء
+                                حساب جديد.</p>
+                            <p class="text-[16px] font-[400] text-[#25324B]">رقم الهاتف</p>
+                        </div>
+                        <div class="flex justify-center gap-2 mt-8">
+                            <div
+                                class="w-[424px] relative h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7] ">
+                                <input type="text" class="border-none outline-0 w-[424px] px-10"
+                                    placeholder="أدخل رقم الهاتف">
+                                <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5" alt="">
+                            </div>
+                            <div
+                                class="w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7] ">
+                                <img src="../assests/images/countrySelectSA.svg" alt="">
+                                <span>+966</span>
+                            </div>
+                        </div>
+                        <div id="login-input-alert" class="flex gap-1.5 items-center mt-2">
+                            <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                            <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء حساب.
+                            </p>
+                        </div>
+                        <div class="flex justify-center items-center mt-8">
+                            <button onclick="openOtpPopup()" class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                                التالي
+                            </button>
+                        </div>
+                    </div>
+
+                    <div dir="ltr" id="otpPopup"
+                        class="popup bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[460px] w-[600px]  language-change-dropdown rounded-[20px] ">
+                        <div class="text-center mx-auto">
+                            <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                            <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                        </div>
+                        <div class="flex flex-col gap-8 mt-8">
+                            <div class="flex justify-end gap-1 items-center">
+                                <span>+966 596 338 44 65</span>
+                                <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رمز التحقق OTP المرسل على
+                                    الرقم </p>
+                            </div>
+                            <p class="text-[16px] font-[400] text-[#25324B] text-right">رقم الهاتف</p>
+                        </div>
+                        <div class="otp-container flex justify-center">
+                            <input type="text" class="otp-input" maxlength="1">
+                            <input type="text" class="otp-input" maxlength="1">
+                            <input type="text" class="otp-input" maxlength="1">
+                            <input type="text" class="otp-input" maxlength="1">
+                        </div>
+                        <div id="login-input-alert" class="flex justify-end gap-1.5 items-center mt-2">
+                            <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء حساب.
+                            </p>
+                            <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                        </div>
+                        <p class="text-[16px] mt-5 font-[400] text-[#25324B] text-right">إعادة الارسال</p>
+                        <div class="flex justify-center items-center mt-8">
+                            <button onclick="closeOtpPopup()" class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                                تسجيل دخول
+                            </button>
+                        </div>
+                    </div>
+                    <!-- login pop up which will open on click ==end here== -->
+                    <div>
+                        <button class="bg-primary text-primary ubc-btn-primary"
+                            onclick="window.location.href='#our-products'">أطلب كميتك الآن</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex">
+                    <button id="mobile-menu-button" class="p-2">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden lg:hidden absolute  bg-white w-full left-0 z-50 shadow-lg">
+                <div class="px-4 py-6 space-y-6">
+                    <!-- Mobile Navigation Links -->
+                    <ul class="flex flex-col gap-4">
+                        <li class="navbarFonts"><a href="../index.html">الرئيسية</a></li>
+                        <li class="navbarFonts"><a href="../index.html">مياهنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html">منتجاتنا</a></li>
+                        <li class="navbarFonts"><a href="../index.html" dir="ltr">لماذا نحن</a></li>
+                        <li class="navbarFonts"><a href="../index.html">كيف تبدأ</a></li>
+                    </ul>
+
+                    <!-- Mobile Right Section Content -->
+                    <div class="flex flex-col gap-6 md:items-center ">
+                        <div class="relative">
+                            <div class="flex md:items-center gap-2 md:justify-center">
+                                <button onclick="setupDropdown('mobile-toggle','mob-lang-dropdown')"
+                                    class="cursor-pointer">
+                                    <img id="mobile-toggle" src="../assests/images/down-arrow.svg" alt="">
+                                </button>
+                                <img src="../assests/images/aen.svg" alt="">
+                                <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                            </div>
+                            <!-- language dropdown -->
+                            <div id="mob-lang-dropdown"
+                                class="bg-white w-[150px] z-50 h-[106px] right-0 language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-2 absolute">
+                                <div class="flex gap-2">
+                                    <p>العربية</p>
+                                    <img src="../assests/images/arabic-flag.svg" alt="">
+                                </div>
+                                <div class="flex gap-2">
+                                    <p>English</p>
+                                    <img src="../assests/images/english-flag.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+
+                            <a href="upload.html">
+                                <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                                </a>
+                            <!-- bell-icon -->
+                        </div>
+
+                        <div class="relative">
+                            <!-- cart-icon -->
+                            <button id="mob-notification-toggle"
+                                onclick="handleNotificationPopup('mob-notification-toggle','mob-empty-notification-popup')"
+                                class="cursor-pointer">
+                                <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                            </button>
+                            <!-- empty notification popup start here -->
+                            <div id="mob-empty-notification-popup"
+                                class="bg-white w-[320px] min-h-[366px]  language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col -bottom-28 right-[27px] gap-6 absolute">
+                                <img src="../assests/images/no-notification.svg" alt="">
+                                <p>You currently have no notifications! 🕊️</p>
+                            </div>
+                            <!-- empty notification popup end here -->
+
+                            <!-- filled notification popup start here -->
+                            <div id="filled-notification-popup"
+                                class="px-[14px] py-[24px] bg-white min-w-[320px] min-h-[366px] right-0 language-change-dropdown rounded-[20px]  hidden flex-col gap-2 absolute">
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full relative flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                            <div
+                                                class="w-[10px] h-[10px] bg-[#F31629] absolute top-0 right-0 rounded-full">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">وصلت زجاجاتك المخصصة!</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">تم تسليم طلبك بنجاح. نتمنى أن
+                                            تضيف زجاجاتنا لمسة
+                                            مميزة
+                                            لمناسبتك! شكرًا لاختيارك لنا.</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        03:50 م
+                                    </span>
+                                </div>
+                                <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">تذكير بموعد التوصيل</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">تذكير سريع! من المتوقع وصول
+                                            طلبك غدًا. تأكد من وجود
+                                            شخص
+                                            متاح للاستلام</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        منذ 1 د
+                                    </span>
+                                </div>
+                                <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">تم شحن طلبك!</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                            تتبع شحنته ومشاهدة
+                                            تفاصيل التوصيل من خلال حسابك.</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        03:50 م
+                                    </span>
+                                </div>
+                                <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                                <div class="flex relative gap-3">
+                                    <div>
+                                        <div
+                                            class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                            <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1 ">
+                                        <p class="font-[600] text-[16px] ">طلبك قيد المعالجة!</p>
+                                        <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                            تتبع شحنته ومشاهدة
+                                            تفاصيل التوصيل من خلال حسابك.</p>
+                                    </div>
+                                    <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                        03:50 م
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- filled notification popup start here -->
+
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <button id="mob-openPopup" onclick="openPopup('mob-loginPopup', 'mob-loginOverlay')"
+                                class="cursor-pointer">سجل دخول</button>
+                            <div
+                                class="w-[44px] h-[44px] border flex border-[#E8E8E8] justify-center items-center rounded-full">
+                                <img src="../assests/images/login-user.svg" width="24" height="24" alt="">
+                            </div>
+                            <!-- login-button -->
+                        </div>
+
+                        <!-- login pop up which will open on click ==start here== -->
+
+                        <div id="mob-loginOverlay" class="overlay hidden "></div>
+                        <div dir="rtl" id="mob-loginPopup"
+                            class="popup bg-white p-[32px] hidden flex-col w-[95%]  language-change-dropdown rounded-[20px] ">
+                            <div class="text-center mx-auto">
+                                <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                                <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                            </div>
+                            <div class="flex flex-col gap-8 mt-8">
+                                <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رقم جوالك لتسجيل الدخول
+                                    لحسابك أو إنشاء
+                                    حساب جديد.</p>
+                                <p class="text-[16px] font-[400] text-[#25324B]">رقم الهاتف</p>
+                            </div>
+                            <!-- <div class="flex justify-center gap-2 mt-8">
+                      <div class=" relative h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7] ">
+                        <input type="text" class="border-none outline-0  px-10" placeholder="أدخل رقم الهاتف" >
+                        <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5" alt="">
+                      </div>
+                      <div class="w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7] ">
+                        <img src="../assests/images/countrySelectSA.svg" alt="">
+                        <span>+966</span>
+                      </div>
+                    </div> -->
+                            <div class="flex flex-col sm:flex-row justify-center gap-2 mt-8 w-full px-4">
+                                <!-- Input Field -->
+                                <div
+                                    class="relative w-full sm:w-auto h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7]">
+                                    <input type="text"
+                                        class="w-full sm:w-auto border-none outline-0 px-10 py-2 text-center sm:text-left"
+                                        placeholder="أدخل رقم الهاتف">
+                                    <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5"
+                                        alt="">
+                                </div>
+
+                                <!-- Country Code Selector -->
+                                <div
+                                    class="w-full sm:w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7]">
+                                    <img src="../assests/images/countrySelectSA.svg" alt="">
+                                    <span>+966</span>
+                                </div>
+                            </div>
+
+                            <div id="login-input-alert" class="flex gap-1.5 items-center mt-2">
+                                <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                                <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء
+                                    حساب.</p>
+                            </div>
+                            <div class="flex justify-center items-center mt-8">
+                                <button class="w-full ubc-btn-primary bg-primary text-primary">
+                                    التالي
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- login pop up which will open on click ==end here== -->
+
+                        <div>
+                            <button class="bg-primary text-primary ubc-btn-primary">أطلب كميتك الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar end here -->
+
+<p class="text-[12px] leading-[27px] font-[500] text-right p-3 bg-[#EEEFF6]">الرئيسية - الطلب</p>
+    <div class="container mx-auto py-8 px-4 max-w-6xl">
+        <h1 class="text-center text-[#4E5EA5] text-[20px] font-[700] leading-[27px] mb-8">أدخل التفاصيل</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 ">
+            <!-- Left Side - Contact Details -->
+            
+
+            <!-- Right Side - Order Details -->
+            <div class="lg:col-span-4 ">
+                <div class="bg-white p-6 border-[1px] border-[#E4E5E8] rounded-[22px]">
+                    <h2 class="text-[#25324B] text-[18px] font-[700] leading-[27px] text-right mb-6">تفاصيل الطلب</h2>
+                    
+                    <!-- Products -->
+                    <div class="space-y-4">
+                        <!-- Product 1 -->
+                        <div class="flex items-center justify-between pb-4">
+                            <div class="flex items-center gap-3">
+                                <img src="../assests/images/Frame 1000015633.svg" alt="Product" class="w-16 h-16 object-contain">
+                                
+
+                                <div class="">
+                                    <p class="text-[#3C4856] text-[14px] font-[600] leading-[18px] ">كرتونة 330 مل 40 عبوة</p>
+                                    <p class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">180 ر.س</p>
+                                </div>
+                                <div class="flex flex-col ms-10 gap-1">
+                                    <span class="block text-red-500 cursor-pointer"><svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.50943 5.85938L3.55347 18.3881C3.62829 19.2916 4.4025 20 5.31486 20H14.9347C15.847 20 16.6212 19.2916 16.696 18.3881L17.7401 5.85938H2.50943ZM7.17701 17.6562C6.86846 17.6562 6.60887 17.4177 6.5893 17.1069L5.99987 7.65379C5.97971 7.33051 6.22664 7.05242 6.5513 7.03238C6.88803 7.00891 7.15571 7.25727 7.17642 7.58055L7.76586 17.0337C7.78672 17.3684 7.52026 17.6562 7.17701 17.6562ZM10.7142 17.0703C10.7142 17.3942 10.4505 17.6562 10.1247 17.6562C9.79894 17.6562 9.5353 17.3942 9.5353 17.0703V7.61719C9.5353 7.29332 9.79894 7.03125 10.1247 7.03125C10.4505 7.03125 10.7142 7.29332 10.7142 7.61719V17.0703ZM14.2496 7.65383L13.6602 17.107C13.6408 17.4145 13.3829 17.6709 13.0351 17.6551C12.7104 17.6351 12.4635 17.357 12.4836 17.0337L13.0731 7.58059C13.0932 7.2573 13.3781 7.02211 13.6982 7.03242C14.0228 7.05246 14.2698 7.33055 14.2496 7.65383ZM17.7874 2.34375H14.2508V1.75781C14.2508 0.788516 13.4576 0 12.4825 0H7.767C6.79191 0 5.99869 0.788516 5.99869 1.75781V2.34375H2.46207C1.81098 2.34375 1.2832 2.8684 1.2832 3.51562C1.2832 4.16277 1.81098 4.6875 2.46207 4.6875H17.7874C18.4385 4.6875 18.9663 4.16277 18.9663 3.51562C18.9663 2.8684 18.4385 2.34375 17.7874 2.34375ZM13.0719 2.34375H7.17756V1.75781C7.17756 1.43453 7.44178 1.17188 7.767 1.17188H12.4825C12.8077 1.17188 13.0719 1.43453 13.0719 1.75781V2.34375Z" fill="#F15353"/>
+                                        </svg>
+                                        </span>
+                                    <span class="text-[#3C4856] text-[12px] font-[400] leading-[18px] ms-auto">100</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="flex items-center justify-between pb-4 border-b">
+                            <div class="flex items-center gap-3     ">
+                                
+                                <img src="../assests/images/Frame 1000015633.svg" alt="Product" class="w-16 h-16 object-contain">
+                                <div>
+                                    <p class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">كرتونة 550 مل 24 عبوة</p>
+                                    <p class="text-[#3C4856] text-[14px] font-[600] leading-[18px]  ">200 ر.س</p>
+                                </div>
+                                <div class="flex flex-col ms-10 gap-1">
+                                    <span class="block text-red-500 cursor-pointer"><svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.50943 5.85938L3.55347 18.3881C3.62829 19.2916 4.4025 20 5.31486 20H14.9347C15.847 20 16.6212 19.2916 16.696 18.3881L17.7401 5.85938H2.50943ZM7.17701 17.6562C6.86846 17.6562 6.60887 17.4177 6.5893 17.1069L5.99987 7.65379C5.97971 7.33051 6.22664 7.05242 6.5513 7.03238C6.88803 7.00891 7.15571 7.25727 7.17642 7.58055L7.76586 17.0337C7.78672 17.3684 7.52026 17.6562 7.17701 17.6562ZM10.7142 17.0703C10.7142 17.3942 10.4505 17.6562 10.1247 17.6562C9.79894 17.6562 9.5353 17.3942 9.5353 17.0703V7.61719C9.5353 7.29332 9.79894 7.03125 10.1247 7.03125C10.4505 7.03125 10.7142 7.29332 10.7142 7.61719V17.0703ZM14.2496 7.65383L13.6602 17.107C13.6408 17.4145 13.3829 17.6709 13.0351 17.6551C12.7104 17.6351 12.4635 17.357 12.4836 17.0337L13.0731 7.58059C13.0932 7.2573 13.3781 7.02211 13.6982 7.03242C14.0228 7.05246 14.2698 7.33055 14.2496 7.65383ZM17.7874 2.34375H14.2508V1.75781C14.2508 0.788516 13.4576 0 12.4825 0H7.767C6.79191 0 5.99869 0.788516 5.99869 1.75781V2.34375H2.46207C1.81098 2.34375 1.2832 2.8684 1.2832 3.51562C1.2832 4.16277 1.81098 4.6875 2.46207 4.6875H17.7874C18.4385 4.6875 18.9663 4.16277 18.9663 3.51562C18.9663 2.8684 18.4385 2.34375 17.7874 2.34375ZM13.0719 2.34375H7.17756V1.75781C7.17756 1.43453 7.44178 1.17188 7.767 1.17188H12.4825C12.8077 1.17188 13.0719 1.43453 13.0719 1.75781V2.34375Z" fill="#F15353"/>
+                                        </svg>
+                                        </span>
+                                    <span class="text-[#3C4856] text-[12px] font-[400] leading-[18px]">200</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Discount Code -->
+                        <div class="flex gap-2 items-center ">
+                    <p class="">قسيمة التخفيض</p>
+                    <div class="flex gap-2 items-center w-[60%] border border-gray-200 rounded-md ms-auto">
+                            <div class="relative flex-grow ">
+                                <input type="text" value="D3457R" class="w-full p-2" readonly>
+                                <span class="absolute left-2 top-3 text-green-500"><svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.62347 0C9.00435 0 10.3542 0.410543 11.5024 1.17971C12.6505 1.94888 13.5454 3.04213 14.0739 4.32122C14.6023 5.6003 14.7406 7.00776 14.4712 8.36563C14.2018 9.7235 13.5368 10.9708 12.5604 11.9497C11.584 12.9287 10.3399 13.5954 8.98556 13.8655C7.63121 14.1356 6.22739 13.997 4.95162 13.4672C3.67585 12.9373 2.58544 12.0401 1.81826 10.889C1.05108 9.73785 0.641602 8.38447 0.641602 7C0.641602 5.14348 1.37719 3.36301 2.68654 2.05025C3.9959 0.737498 5.77176 0 7.62347 0Z" fill="#71C19B"/>
+                                    <path d="M5.09375 7.56704L7.33094 9.23604L10.4967 4.46704" fill="#71C19B"/>
+                                    <path d="M5.09375 7.56704L7.33094 9.23604L10.4967 4.46704" stroke="white" stroke-width="1.3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    </span>
+                            </div>
+                            <button class="bg-[#7BC5AC] text-white px-6 py-2 rounded-md">أدخل</button>
+                        </div>
+                        </div>
+
+
+                        <!-- Price Details -->
+                        <div class="space-y-2 text-sm mt-4">
+                            <div class="flex justify-between">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">المجموع غير شامل الضريبة</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">58.000 ر.س</span>
+                            </div>
+                            <div class="flex justify-between text-red-500">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">قسيمة التخفيض</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">-580 ر.س</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">المبلغ الخاضع للضريبة</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">57.420 ر.س</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">ضريبة القيمة المضافة (15%)</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">8.613 ر.س</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">التوصيل</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">185 ريال</span>
+                            </div>
+                            
+                            <div class="flex justify-between font-medium pt-2 border-t">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">المجموع الكلي:</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">66.218 ر.س</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span class="text-[#3C4856] text-[14px] font-[400] leading-[18px]">مبلغ الحجز 100%</span>
+                                <span class="text-[#3C4856] text-[14px] font-[600] leading-[18px]">6.621,8 ر.س</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="lg:col-span-8 p-6 border-[1px] border-[#E4E5E8] rounded-[22px]">
+
+                <a href="contact-detail-upload.html" class="bg-secondary ubc-btn-secondary text-primary flex md:w-[100%] justify-center items-center gap-2">
+                    <img src="../assests/images/Group.png " alt="">
+                    <span class="text-[#474647] text-[14px] font-[600] leading-[18px]">تعديل التصميم</span>
+                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.833 13.2568L6.16634 8.50011L10.833 3.74341" stroke="#25324B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                  </a>
+
+                <p class="my-2 text-[16px] leading-[27px] font-[400] flex gap-2"><svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_246_27840)">
+                    <path d="M19.7772 7.84209C19.5382 7.50526 19.1356 7.31203 18.6724 7.31203H16.9097V5.39501C16.9097 4.65622 16.3086 4.05519 15.5698 4.05519H9.3906C9.12771 4.05519 8.71743 3.8469 8.56238 3.6347L8.09989 3.00209C7.73908 2.5086 7.00602 2.13635 6.39462 2.13635H4.25345C3.58043 2.13635 2.90357 2.61492 2.67913 3.24963L2.53189 3.66621C2.46251 3.86247 2.18999 4.05519 1.98177 4.05519H1.33982C0.601035 4.05519 0 4.65622 0 5.39501V17.4946C0 17.5587 0.01166 17.6199 0.0320832 17.6771C0.0430914 17.9165 0.117542 18.1423 0.253189 18.3335C0.492184 18.6704 0.894853 18.8636 1.358 18.8636H15.0086C15.8339 18.8636 16.6939 18.2535 16.9666 17.4746L19.9125 9.05995C20.0655 8.62288 20.0162 8.179 19.7772 7.84209ZM1.33982 5.14153H1.98177C2.65494 5.14153 3.33173 4.66296 3.55609 4.02825L3.70326 3.61182C3.77271 3.41548 4.04524 3.22276 4.25345 3.22276H6.39455C6.65745 3.22276 7.06772 3.43105 7.22285 3.64325L7.68534 4.27579C8.04615 4.76935 8.77921 5.14153 9.3906 5.14153H15.5698C15.7073 5.14153 15.8233 5.25762 15.8233 5.39501V7.31203H5.02178C4.19653 7.31203 3.33651 7.92212 3.06384 8.70102L1.08634 14.3495V5.39501C1.08634 5.25762 1.20243 5.14153 1.33982 5.14153ZM18.8872 8.70102L15.9412 17.1157C15.82 17.4619 15.3755 17.7772 15.0086 17.7772H1.358C1.25313 17.7772 1.17136 17.7502 1.13928 17.705C1.1072 17.6597 1.10864 17.5736 1.14334 17.4746L4.08927 9.05995C4.2105 8.7137 4.65503 8.39837 5.02185 8.39837H18.6725C18.7774 8.39837 18.8591 8.42538 18.8913 8.47065C18.9233 8.51591 18.9218 8.60202 18.8872 8.70102Z" fill="#000002"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_246_27840">
+                    <rect width="20" height="20" fill="white" transform="translate(0 0.5)"/>
+                    </clipPath>
+                    </defs>
+                    </svg>الملف المرفوع: شعار عبوة المياه
+                    </p>
+                <form id="personal-form " class="form-container" novalidate>
+                    
+                   
+
+                    <div class="grid grid-cols-1 gap-5 mb-4">
+
+                        <div class="mb-4">
+                            <label class="block text-[#474647] text-[18px] font-[700] leading-[27px] mb-1 text-right">
+                                التاريخ المفضل للإستلام 
+                                <span class="font-[600]">(اختياري)</span>
+                            </label>
+                            
+                            <div class="relative">
+                                <!-- Input Container -->
+                                <div class="relative flex items-center border-[1px] border-[#E4E5E8] rounded-[18px] px-3 py-2 mt-3 cursor-pointer" id="dateInput">
+                                    <!-- Calendar Icon -->
+                                    <svg width="19" height="20" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 14.5C7.55228 14.5 8 14.0523 8 13.5C8 12.9477 7.55228 12.5 7 12.5C6.44772 12.5 6 12.9477 6 13.5C6 14.0523 6.44772 14.5 7 14.5Z" fill="#394149"/>
+                                        <path d="M7 18.5C7.55228 18.5 8 18.0523 8 17.5C8 16.9477 7.55228 16.5 7 16.5C6.44772 16.5 6 16.9477 6 17.5C6 18.0523 6.44772 18.5 7 18.5Z" fill="#394149"/>
+                                        <path d="M11 14.5C11.5523 14.5 12 14.0523 12 13.5C12 12.9477 11.5523 12.5 11 12.5C10.4477 12.5 10 12.9477 10 13.5C10 14.0523 10.4477 14.5 11 14.5Z" fill="#394149"/>
+                                        <path d="M11 18.5C11.5523 18.5 12 18.0523 12 17.5C12 16.9477 11.5523 16.5 11 16.5C10.4477 16.5 10 16.9477 10 17.5C10 18.0523 10.4477 18.5 11 18.5Z" fill="#394149"/>
+                                        <path d="M15 14.5C15.5523 14.5 16 14.0523 16 13.5C16 12.9477 15.5523 12.5 15 12.5C14.4477 12.5 14 12.9477 14 13.5C14 14.0523 14.4477 14.5 15 14.5Z" fill="#394149"/>
+                                        <path d="M15 18.5C15.5523 18.5 16 18.0523 16 17.5C16 16.9477 15.5523 16.5 15 16.5C14.4477 16.5 14 16.9477 14 17.5C14 18.0523 14.4477 18.5 15 18.5Z" fill="#394149"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.75 6.5V19.5C21.7495 20.4944 21.3542 21.4479 20.6511 22.1511C19.9479 22.8542 18.9944 23.2495 18 23.25H4C3.0056 23.2495 2.05208 22.8542 1.34893 22.1511C0.645788 21.4479 0.25053 20.4944 0.25 19.5V6.5C0.25053 5.5056 0.645788 4.55208 1.34893 3.84893C2.05208 3.14579 3.0056 2.75053 4 2.75H18C18.9944 2.75053 19.9479 3.14579 20.6511 3.84893C21.3542 4.55208 21.7495 5.5056 21.75 6.5ZM20.25 6.5C20.25 5.90326 20.0129 5.33097 19.591 4.90901C19.169 4.48705 18.5967 4.25 18 4.25H4C3.40326 4.25 2.83097 4.48705 2.40901 4.90901C1.98705 5.33097 1.75 5.90326 1.75 6.5V19.5C1.75 20.0967 1.98705 20.669 2.40901 21.091C2.83097 21.5129 3.40326 21.75 4 21.75H18C18.5967 21.75 19.169 21.5129 19.591 21.091C20.0129 20.669 20.25 20.0967 20.25 19.5V6.5Z" fill="#394149"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 8.25C21.1989 8.25 21.3897 8.32902 21.5303 8.46967C21.671 8.61032 21.75 8.80109 21.75 9C21.75 9.19891 21.671 9.38968 21.5303 9.53033C21.3897 9.67098 21.1989 9.75 21 9.75H1C0.801088 9.75 0.610322 9.67098 0.46967 9.53033C0.329018 9.38968 0.25 9.19891 0.25 9C0.25 8.80109 0.329018 8.61032 0.46967 8.46967C0.610322 8.32902 0.801088 8.25 1 8.25H21ZM14.25 1.5C14.25 1.30109 14.329 1.11032 14.4697 0.96967C14.6103 0.829018 14.8011 0.75 15 0.75C15.1989 0.75 15.3897 0.829018 15.5303 0.96967C15.671 1.11032 15.75 1.30109 15.75 1.5V5.5C15.75 5.69891 15.671 5.88968 15.5303 6.03033C15.3897 6.17098 15.1989 6.25 15 6.25C14.8011 6.25 14.6103 6.17098 14.4697 6.03033C14.329 5.88968 14.25 5.69891 14.25 5.5V1.5ZM6.25 1.5C6.25 1.30109 6.32902 1.11032 6.46967 0.96967C6.61032 0.829018 6.80109 0.75 7 0.75C7.19891 0.75 7.38968 0.829018 7.53033 0.96967C7.67098 1.11032 7.75 1.30109 7.75 1.5V5.5C7.75 5.69891 7.67098 5.88968 7.53033 6.03033C7.38968 6.17098 7.19891 6.25 7 6.25C6.80109 6.25 6.61032 6.17098 6.46967 6.03033C6.32902 5.88968 6.25 5.69891 6.25 5.5V1.5Z" fill="#394149"/>
+                                        </svg>
+                                        
+                                    <!-- Input -->
+                                    <input 
+                                        type="text" 
+                                        readonly
+                                        placeholder="اختر التاريخ"
+                                        class="w-full bg-transparent text-right outline-none cursor-pointer placeholder:text-[#CECECE] pr-2"
+                                        id="dateDisplay"
+                                    >
+                                </div>
+                
+                                <!-- Calendar Popup -->
+                                <div class="calendar-popup absolute top-full right-0 mt-2 bg-white shadow-lg rounded-[20px] p-10 w-[340px] z-10" id="calendarPopup">
+                                    <!-- Calendar Header -->
+                                    <div class="flex items-center justify-between mb-4">
+                                        
+                                        <div class="flex items-center gap-3">
+                                            <button class="month-nav" id="nextMonth">
+                                                <svg width="10" height="13" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1.97297 0.445162L9.66083 7.27517C9.76833 7.37035 9.85363 7.48345 9.91183 7.60798C9.97004 7.73251 10 7.86602 10 8.00086C10 8.1357 9.97004 8.26921 9.91183 8.39374C9.85363 8.51827 9.76833 8.63137 9.66083 8.72655L1.97297 15.5566C1.75634 15.749 1.46251 15.8571 1.15614 15.8571C0.849767 15.8571 0.555943 15.749 0.339305 15.5566C0.122667 15.3641 0.000961157 15.1031 0.000961142 14.8309C0.000961127 14.5587 0.122667 14.2976 0.339305 14.1052L7.21128 8.00001L0.338344 1.89483C0.121706 1.70237 -6.30135e-07 1.44133 -6.42033e-07 1.16914C-6.53931e-07 0.896958 0.121706 0.63592 0.338344 0.443455C0.554982 0.250991 0.848806 0.142862 1.15518 0.142862C1.46155 0.142862 1.75537 0.250991 1.97201 0.443455L1.97297 0.445162Z" fill="#4E5EA5"/>
+                                                    </svg>
+                                                    
+                                            </button>
+                                            <button class="month-nav" id="prevMonth">
+                                                <svg width="10" height="13" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.02703 0.302294L0.339175 7.1323C0.231668 7.22748 0.146368 7.34058 0.0881656 7.46511C0.0299619 7.58964 3.49303e-07 7.72315 3.43409e-07 7.85799C3.37515e-07 7.99283 0.0299619 8.12634 0.0881656 8.25087C0.146368 8.3754 0.231668 8.4885 0.339175 8.58368L8.02703 15.4137C8.24366 15.6062 8.53749 15.7143 8.84386 15.7143C9.15023 15.7143 9.44406 15.6062 9.6607 15.4137C9.87733 15.2212 9.99904 14.9602 9.99904 14.688C9.99904 14.4158 9.87733 14.1548 9.6607 13.9623L2.78872 7.85714L9.66166 1.75196C9.87829 1.5595 10 1.29846 10 1.02628C10 0.75409 9.87829 0.493052 9.66166 0.300587C9.44502 0.108123 9.15119 -5.75915e-06 8.84482 -5.77254e-06C8.53845 -5.78593e-06 8.24463 0.108123 8.02799 0.300587L8.02703 0.302294Z" fill="#4E5EA5"/>
+                                                    </svg>
+                                                    
+                                            </button>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <svg width="10" height="13" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.97297 0.445162L9.66083 7.27517C9.76833 7.37035 9.85363 7.48345 9.91183 7.60798C9.97004 7.73251 10 7.86602 10 8.00086C10 8.1357 9.97004 8.26921 9.91183 8.39374C9.85363 8.51827 9.76833 8.63137 9.66083 8.72655L1.97297 15.5566C1.75634 15.749 1.46251 15.8571 1.15614 15.8571C0.849767 15.8571 0.555943 15.749 0.339305 15.5566C0.122667 15.3641 0.000961157 15.1031 0.000961142 14.8309C0.000961127 14.5587 0.122667 14.2976 0.339305 14.1052L7.21128 8.00001L0.338344 1.89483C0.121706 1.70237 -6.30135e-07 1.44133 -6.42033e-07 1.16914C-6.53931e-07 0.896958 0.121706 0.63592 0.338344 0.443455C0.554982 0.250991 0.848806 0.142862 1.15518 0.142862C1.46155 0.142862 1.75537 0.250991 1.97201 0.443455L1.97297 0.445162Z" fill="#4E5EA5"/>
+                                                </svg>
+                                            <span class="text-[17px] font-[600] leading-[24px]" id="currentMonth">December 2024</span>
+                                            
+                                        </div>
+                                        <button class="close-btn absolute top-3 right-3" id="closeCalendar">
+                                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="20" cy="20" r="19.5" fill="white" stroke="#E4E5E8"/>
+                                                <path d="M14.5 14.5L25.5 25.5M25.5 14.5L14.5 25.5L25.5 14.5Z" stroke="#25324B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                              
+                                        </button>
+                                    </div>
+                
+                                    <!-- Days of Week -->
+                                    <div class="calendar-grid mb-1">
+                                        <div class="day-header">SUN</div>
+                                        <div class="day-header">MON</div>
+                                        <div class="day-header">TUE</div>
+                                        <div class="day-header">WED</div>
+                                        <div class="day-header">THU</div>
+                                        <div class="day-header">FRI</div>
+                                        <div class="day-header">SAT</div>
+                                    </div>
+                
+                                    <!-- Calendar Days -->
+                                    <div class="calendar-grid" id="calendarDays"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+              <div class="grid grid-cols-1 gap-5 mb-4">
+                        <div class="form-group">
+                            <label class="block text-[#474647] text-[15px] font-[600] leading-[27px] mb-1 text-right">تفاصيل الشحن</label>
+                            <div class="space-y-4">
+                                <!-- Radio Buttons -->
+                                <div class="space-y-3">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="address" value="saved" class="text-blue-600" checked>
+                                        <span>اختر العنوان</span>
+                                    </label>
+                            
+                                </div>
+                            <div class="space-y-4" >
+                              
+                            <div class="input-icon" id="savedAddressField">
+                                <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.1317 13.4993C13.8548 13.4993 15.2517 12.1024 15.2517 10.3793C15.2517 8.65615 13.8548 7.25928 12.1317 7.25928C10.4086 7.25928 9.01172 8.65615 9.01172 10.3793C9.01172 12.1024 10.4086 13.4993 12.1317 13.4993Z" stroke="#394149" stroke-width="1.5"/>
+                                    <path d="M3.75447 8.55983C5.72447 -0.100173 18.5545 -0.0901732 20.5145 8.56983C21.6645 13.6498 18.5045 17.9498 15.7345 20.6098C13.7245 22.5498 10.5445 22.5498 8.52448 20.6098C5.76448 17.9498 2.60447 13.6398 3.75447 8.55983Z" stroke="#394149" stroke-width="1.5"/>
+                                    </svg>
+                                    
+                                    
+                                <input type="text" class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]" placeholder="إختر أحد العناوين المحفوظ سابقاََ" required>
+                         
+                            </div>
+                            <div class="space-y-3">
+                            
+                                <label class="flex items-center gap-2">
+                                    <input type="radio" name="address" value="new" class="text-blue-600">
+                                    <span>أدخل عنوان جديد</span>
+                                </label>
+                            </div>
+                   
+                            <div id="newAddressField">
+                                <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">المدينة</label>
+                            <div class="input-icon" >
+                               
+                                <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.1317 13.4993C13.8548 13.4993 15.2517 12.1024 15.2517 10.3793C15.2517 8.65615 13.8548 7.25928 12.1317 7.25928C10.4086 7.25928 9.01172 8.65615 9.01172 10.3793C9.01172 12.1024 10.4086 13.4993 12.1317 13.4993Z" stroke="#394149" stroke-width="1.5"/>
+                                    <path d="M3.75447 8.55983C5.72447 -0.100173 18.5545 -0.0901732 20.5145 8.56983C21.6645 13.6498 18.5045 17.9498 15.7345 20.6098C13.7245 22.5498 10.5445 22.5498 8.52448 20.6098C5.76448 17.9498 2.60447 13.6398 3.75447 8.55983Z" stroke="#394149" stroke-width="1.5"/>
+                                    </svg>
+                                    
+                                    
+                                <input type="text" class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]" placeholder="اختر مدينتك" required>
+                         
+                            </div>
+
+                            <div class="mapouter"><div class="gmap_canvas mt-5"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=533&amp;height=240&amp;hl=en&amp;q=mecca&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://sprunkin.com/">Sprunki Phases</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:240px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:240px;}.gmap_iframe {height:240px!important;}</style></div>
+
+
+                            <div class="grid grid-cols-1 gap-5 mb-4 mt-3">
+                      
+                                <div class="form-group">
+                                    <label class="block text-[#474647] text-[15px] font-[600] leading-[27px] mb-1 text-right">وصف العنوان</label>
+                                    <div class="input-icon">
+                                        <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21.2349 21.1998C21.0349 21.1998 20.8449 21.1198 20.7049 20.9798L14.3249 14.5998C14.0349 14.3098 14.0349 13.8298 14.3249 13.5398L22.0549 5.8098C22.2449 5.6198 22.5349 5.5498 22.7949 5.6198C23.0549 5.6998 23.2549 5.90981 23.3149 6.16981C23.5049 7.01981 23.6049 7.9698 23.6049 9.0698V15.0698C23.6049 17.8398 23.0249 19.7098 21.7649 20.9798C21.6249 21.1198 21.4149 21.1498 21.2349 21.1998ZM15.9149 14.0698L21.1749 19.3298C21.8049 18.3598 22.1049 16.9798 22.1049 15.0698V9.0698C22.1049 8.6598 22.0949 8.27981 22.0649 7.91981L15.9149 14.0698Z" fill="#394149"/>
+                                            <path d="M7.12448 22.5498C7.06448 22.5498 7.0145 22.5398 6.9545 22.5298C3.6445 21.7698 2.10449 19.3998 2.10449 15.0698V9.06979C2.10449 3.63979 4.42449 1.31979 9.85449 1.31979H15.8545C20.1845 1.31979 22.5545 2.8598 23.3145 6.1698C23.3745 6.4198 23.2945 6.6898 23.1145 6.8698L7.65448 22.3298C7.51448 22.4698 7.32448 22.5498 7.12448 22.5498ZM9.85449 2.81979C5.24449 2.81979 3.60449 4.45979 3.60449 9.06979V15.0698C3.60449 18.5398 4.5645 20.2798 6.8945 20.9698L21.7445 6.1198C21.0645 3.7898 19.3145 2.82979 15.8445 2.82979H9.85449V2.81979Z" fill="#394149"/>
+                                            <path d="M15.8539 22.8198H9.85389C8.75389 22.8198 7.8139 22.7298 6.9539 22.5298C6.6839 22.4698 6.47388 22.2698 6.40388 22.0098C6.32388 21.7498 6.40388 21.4698 6.59388 21.2698L14.3239 13.5398C14.6139 13.2498 15.0939 13.2498 15.3839 13.5398L21.7639 19.9198C21.9039 20.0598 21.9839 20.2498 21.9839 20.4498C21.9839 20.6498 21.9039 20.8398 21.7639 20.9798C20.4939 22.2398 18.6239 22.8198 15.8539 22.8198ZM8.7039 21.2798C9.0639 21.3098 9.44389 21.3198 9.85389 21.3198H15.8539C17.7739 21.3198 19.1439 21.0198 20.1139 20.3898L14.8539 15.1298L8.7039 21.2798Z" fill="#394149"/>
+                                            <path d="M9.97443 13.3798C9.34443 13.3798 8.71442 13.1498 8.21442 12.6798C6.62442 11.1698 5.98445 9.50979 6.36445 7.88979C6.74445 6.22979 8.19443 5.10977 9.97443 5.10977C11.7544 5.10977 13.2044 6.22979 13.5844 7.88979C13.9544 9.51979 13.3144 11.1698 11.7244 12.6798C11.2344 13.1398 10.6044 13.3798 9.97443 13.3798ZM7.82444 8.21977C7.50444 9.57977 8.42443 10.7998 9.25443 11.5898C9.66443 11.9798 10.2944 11.9798 10.6944 11.5898C11.5144 10.8098 12.4344 9.58977 12.1244 8.21977C11.8544 7.02977 10.7944 6.59978 9.97443 6.59978C9.15443 6.59978 8.10444 7.02977 7.82444 8.21977Z" fill="#394149"/>
+                                            <path d="M10.0039 9.55978C9.45391 9.55978 9.00391 9.10978 9.00391 8.55978C9.00391 8.00978 9.44391 7.55978 10.0039 7.55978H10.0139C10.5639 7.55978 11.0139 8.00978 11.0139 8.55978C11.0139 9.10978 10.5539 9.55978 10.0039 9.55978Z" fill="#394149"/>
+                                            </svg>
+                                        <input type="text" class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]" placeholder="أدخل وصف العنوان كاملاََ" required>
+                                 
+                                    </div>
+                             
+            
+                                </div>
+                              
+                            </div>
+
+                        </div>
+                        </div>
+                      
+                    </div>
+                        </div>
+                        </div>
+                    
+    
+    
+                  
+                    
+                   
+                </form>
+
+                                <!-- Navigation -->
+                                <div class="flex justify-between mt-8 gap-3">
+                                    <!-- Next Button -->
+                                    <a href="invoice.html" class="text-center ubc-btn-primary bg-primary text-primary w-full">
+                                        التالي
+                                    </a>
+                                
+                                    <!-- Back Button -->
+                                    <a href="upload2.html" class="text-center ubc-btn-primary bg-white text-[#313131] border border-[#E4E5E8] w-full">
+                                        رجوع
+                                    </a>
+                                </div>
+      
+
+     
+            </div>
+
+                           
+
+        </div>
+    </div>
+
+    <footer dir="rtl" class="bg-[#5660A8] w-full text-white py-10">
+        <div class="max-w-[1536px] mx-auto px-5 grid grid-cols-1 md:grid-cols-12 gap-8">
+            <!-- Left Section -->
+            <div class="md:col-span-7 flex flex-col md:flex-row gap-8 md:gap-[40px] justify-center">
+                <!-- Logo & Social -->
+                <div class="text-center md:text-left">
+                    <img src="../assests/images/footer-logo.svg" alt="" class="mx-auto md:mx-0">
+                    <div class="flex gap-4 justify-center md:justify-start mt-4">
+                        <img src="../assests/images/youtubeIcon.svg" alt="">
+                        <img src="../assests/images/xIcon.svg" alt="">
+                        <img src="../assests/images/facebookIcon.svg" alt="">
+                        <img src="../assests/images/instagramIcon.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Links Container -->
+                <div class="flex flex-col sm:flex-row gap-8 md:gap-16 justify-center">
+                    <!-- Useful Links -->
+                    <div class="text-center md:text-right">
+                        <h3 class="text-lg font-semibold mb-3">روابط مفيدة</h3>
+                        <ul class="space-y-2">
+                            <li><a href="../index.html" class="hover:underline">تواصل معنا</a></li>
+                            <li><a href="who-we-are.html" class="hover:underline">من نحن</a></li>
+                            <li><a href="terms-and-condition.html" class="hover:underline">الشروط والأحكام</a>
+                            </li>
+                            <li><a href="privacy-policy.html" class="hover:underline">سياسة الخصوصية</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Shopping Links -->
+                    <div class="text-center md:text-right">
+                        <h3 class="text-lg font-semibold mb-3">التسوق</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:underline">اطلب كميتك الآن</a></li>
+                            <li><a href="#" class="hover:underline">المنتجات</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Site Navigation -->
+                    <div class="text-center md:text-right">
+                        <h3 class="text-lg font-semibold mb-3">في الموقع</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:underline">الرئيسية</a></li>
+                            <li><a href="#" class="hover:underline">مياهنا</a></li>
+                            <li><a href="#" class="hover:underline">منتجاتنا</a></li>
+                            <li><a href="#" class="hover:underline">لماذا نحن</a></li>
+                            <li><a href="#" class="hover:underline">كيف تبدأ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Download Section -->
+            <div
+                class="md:col-span-5 py-5 md:py-0 text-center md:text-right px-4 md:px-[23px] h-auto md:h-[202px] w-full md:w-[429px] rounded-[20px] bg-[#FFFFFF1A] flex flex-col justify-center items-center mx-auto">
+                <p class="text-lg mb-4 px-2 md:px-0">
+                    حمل تطبيقنا الآن وابدأ بالتميز! زجاجات مياه مصممة لك، تجربة سهلة وممتعة بين يديك 💧
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                    <button
+                        class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                        <img src="../assests/images/Apple_App_Store.svg" alt="App Store" width="20">
+                        App Store
+                    </button>
+                    <button
+                        class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                        <img src="../assests/images/Google_Play.svg" alt="Play Store" width="20">
+                        Play Store
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="max-w-[1536px] mx-auto mt-10 md:mt-20">
+            <p class="text-center md:text-right mx-4 md:mx-36 text-sm md:text-base">جميع الحقوق محفوظة لدى شركة المتحدة
+                للمرطبات 2024 ©</p>
+        </div>
+    </footer>
+<!-- 
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Include your existing dropdown functions here
+        function setupDropdown(toggleId, dropdownId) {
+            // ... your existing dropdown code ...
+        }
+
+        function handleNotificationPopup(toggleId, popupId) {
+            // ... your existing notification code ...
+        }
+    </script> -->
+
+
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+  
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  
+    // Include your existing dropdown functions here
+    function setupDropdown(toggleId, dropdownId) {
+      // ... your existing dropdown code ...
+    }
+  
+    function handleNotificationPopup(toggleId, popupId) {
+      // ... your existing notification code ...
+    }
+  </script>
+
+</body>
+
+<script>
+    // Get radio buttons and input fields
+    const radioButtons = document.getElementsByName('address');
+    const savedAddressField = document.getElementById('savedAddressField');
+    const newAddressField = document.getElementById('newAddressField');
+
+    // Add change event listener to radio buttons
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'saved') {
+                savedAddressField.classList.remove('hidden');
+                newAddressField.classList.add('hidden');
+            } else {
+                savedAddressField.classList.add('hidden');
+                newAddressField.classList.remove('hidden');
+            }
+        });
+    });
+</script>
+
+
+<script>
+    // Elements
+    const dateInput = document.getElementById('dateInput');
+    const dateDisplay = document.getElementById('dateDisplay');
+    const calendarPopup = document.getElementById('calendarPopup');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const closeBtn = document.getElementById('closeCalendar');
+    const currentMonthElement = document.getElementById('currentMonth');
+    const calendarDays = document.getElementById('calendarDays');
+
+    // Current date state
+    let currentDate = new Date();
+    let selectedDate = null;
+
+    // Month names
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    // Toggle calendar
+    dateInput.addEventListener('click', (e) => {
+        e.preventDefault();
+        calendarPopup.classList.toggle('show');
+        renderCalendar();
+    });
+
+    // Close calendar
+    closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        calendarPopup.classList.remove('show');
+    });
+
+    // Close calendar when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!dateInput.contains(e.target) && !calendarPopup.contains(e.target)) {
+            calendarPopup.classList.remove('show');
+        }
+    });
+
+    // Previous month
+    prevMonthBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    // Next month
+    nextMonthBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    // Format date for display
+    function formatDate(date) {
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}/${day}/${year}`;
+    }
+
+    // Render calendar
+    function renderCalendar() {
+        // Update month/year display
+        const month = currentDate.getMonth();
+        const year = currentDate.getFullYear();
+        currentMonthElement.textContent = `${months[month]} ${year}`;
+
+        // Clear previous days
+        calendarDays.innerHTML = '';
+
+        // Get first day of month and total days
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const totalDays = lastDay.getDate();
+        const startingDay = firstDay.getDay();
+
+        // Add empty cells for days before start of month
+        for (let i = 0; i < startingDay; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.classList.add('calendar-day', 'empty');
+            calendarDays.appendChild(emptyDay);
+        }
+
+        // Add days of month
+        for (let day = 1; day <= totalDays; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('calendar-day');
+            dayElement.textContent = day;
+
+            const currentDateString = formatDate(new Date(year, month, day));
+            if (selectedDate && formatDate(selectedDate) === currentDateString) {
+                dayElement.classList.add('selected');
+            }
+
+            dayElement.addEventListener('click', (e) => {
+                e.preventDefault();
+                selectedDate = new Date(year, month, day);
+                dateDisplay.value = formatDate(selectedDate);
+                calendarPopup.classList.remove('show');
+                renderCalendar(); // Re-render to update selected state
+            });
+
+            calendarDays.appendChild(dayElement);
+        }
+    }
+
+    // Initial render
+    renderCalendar();
+
+    // Prevent form submission on enter key
+    dateInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
+
+    // Update calendar when input changes manually
+    dateDisplay.addEventListener('change', (e) => {
+        const inputDate = new Date(e.target.value);
+        if (!isNaN(inputDate.getTime())) {
+            selectedDate = inputDate;
+            currentDate = new Date(selectedDate);
+            renderCalendar();
+        }
+    });
+</script>
+
+
+</html>

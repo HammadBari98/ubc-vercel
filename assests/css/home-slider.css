@@ -1,0 +1,236 @@
+.swiper {
+  width: 80%;
+  height: 100%;
+}
+
+.prod-swiper {
+  width: 80%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  display: block;
+}
+/* .che{
+  display: flex;
+  flex-direction: row;
+} */
+/* .swiper-horizontal{
+  touch-action: pan-x !important;
+} */
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  width: 270px !important;
+  height: 384px !important;
+}
+
+.partner-swiper-slide {
+  width: 180px !important;
+  height: 180px !important;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.customer-swiper-slide {
+  max-width: 586px !important;
+  width: 586px !important;
+  height: 269px !important;
+}
+.customer-swiper-slide :hover {
+  background-color: #4E5EA5;
+  ;
+}
+@media (max-width: 1024px) {
+  .customer-swiper-slide {
+    width: 350px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .customer-swiper-slide {
+    width: 300px !important;
+  }
+}
+
+.offers-slider-next-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.offers-slider-prev-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prod-slider-next-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prod-slider-prev-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.partner-slider-next-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.partner-slider-prev-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customer-slider-next-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #71C19B !important;
+  opacity: 1;
+}
+
+.customer-slider-prev-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #E8E8E8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.products-card-shadow {
+  box-shadow: 0px 4px 16px 0px rgba(166, 166, 166, 0.16);
+}
+
+.image-rounded {
+  border-top-left-radius: 25.56px;
+  border-top-right-radius: 25.56px;
+}
+
+@media (max-width: 760px) {
+  .swiper-button-next {
+    right: 20px;
+    transform: rotate(90deg);
+  }
+
+  .swiper-button-prev {
+    left: 20px;
+    transform: rotate(90deg);
+  }
+}
+
+/* why-us cards */
+.why-us-cards {
+  /* height: 400px; */
+  /* width: 560.2px; */
+  border-radius: 20px;
+  border: 1px solid #F0F0F0;
+  box-shadow: 0px 4px 37.7px 0px rgba(0, 0, 0, 0.03);
+}
+
+/* customer crousel star here */
+.customers-swiper {}
+
+.swiper-wrapper {
+  width: 100%;
+  height: max-content !important;
+  padding-bottom: 64px !important;
+  -webkit-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
+  position: relative;
+}
+
+.swiper-pagination-bullet {
+  background: #4F46E5;
+}
+
+.swiper-pagination-bullet-active {
+  background: #4F46E5 !important;
+}
+
+
+
+.customer-swiper {
+  width: 100% !important;
+}
+
+
+/* language change dropdown */
+.language-change-dropdown {
+  box-shadow: 0px 4px 37.7px 0px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(240, 240, 240, 1)
+}
+
+
+/* overlay popup */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Dimming effect */
+  z-index: 999;
+}
+
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}

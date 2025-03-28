@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أنشئ حساب</title>
+    <link rel="stylesheet" href="../src/output.css">
+    <link rel="stylesheet" href="../src/input.css">
+    <link rel="stylesheet" href="../assests/css/index.css">
+    <script src="../assests/js/signup.js"></script>
+    <style>
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon svg {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+
+        .input-icon input {
+            padding-right: 40px !important;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper .clear-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .select-wrapper .arrow-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
+
+        .custom-select {
+            padding-right: 35px;
+            padding-left: 35px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #F9FAFB;
+            border: 1px solid #F3F4F6;
+        }
+
+        .form-container {
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .account-type.active {
+            background-color: white;
+            border-color: #4E5EA5;
+            border-width: 2px;
+        }
+
+
+        .error-input {
+            border-color: #FF4B55 !important;
+        }
+
+        .error-message {
+            color: #FF4B55;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .error .error-icon,
+        .error .error-message {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="accountCreatedOverly" class="overlay hidden"></div>
+    <div dir="rtl" id="accountCreatedPopup"
+        class="popup relative bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[490px] w-[600px]  language-change-dropdown rounded-[20px] justify-between">
+        <div class="flex flex-col  justify-evenly items-center h-[300px]">
+            <div class="flex justify-center items-center">
+                <img src="../assests/images/accountCreated.svg" alt="">
+            </div>
+            <p class="text-center text-[28px] font-[700] ">تم إنشاء الحساب</p>
+            <p class="text-center text-[16px] font-[400] ">تم إنشاء حسابك الجديد بنجاح!</p>
+        </div>
+
+
+
+        <div class="flex justify-center items-center mt-8">
+            <button class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                التوجه إلى الرئيسية
+            </button>
+        </div>
+        <button onclick="handleCreatedPopup()" class="absolute top-5 right-5">
+            <img src="../assests/images/closeBtn.svg" alt="">
+        </button>
+
+    </div>
+    <div id="ubc-navbar" dir="" class="max-w-[1536px]  mx-auto">
+        <div class="flex items-center justify-between py-4 mx-20">
+            <div>
+                <img src="../assests/images/logo-ar.svg" alt="">
+            </div>
+            <div>
+                <ul class="flex gap-4">
+                    <li>الرئيسية</li>
+                    <li>مياهنا</li>
+                    <li>منتجاتنا</li>
+                    <li>لماذا نحن</li>
+                    <li>كيف تبدأ</li>
+                </ul>
+            </div>
+            <div class="flex gap-4 items-center jus">
+                <span>
+                    <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                </span>
+                <span>
+                    <!-- cart-icon -->
+                    <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                </span>
+                <span>
+                    <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                    <!-- bell-icon -->
+                </span>
+                <span class="flex gap-3">
+                    Login
+                    <img src="../assests/images/login-user.svg" class="border border-[#E8E8E8]  " width="24" height="24"
+                        alt="">
+                    <!-- login-button -->
+                </span>
+                <span>
+                    <button class="bg-primary text-primary ubc-btn-primary">Order Your Quantity Now</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="w-full max-w-[1400px] mx-auto p-5">
+        <div class="max-w-lg mx-auto border-[1px] border-[#E4E5E8] p-10 rounded-[22px]">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-[#71C19B] rounded-full mx-auto mb-4 relative">
+                    <span
+                        class="absolute bottom-0 right-0 bg-[#4E5EA5] text-green-500 rounded-full w-6 h-6 flex items-center justify-center text-xl font-bold"><img
+                            src="../assests/images/camera.png" alt="" srcset=""></span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">أنشئ حساب</h2>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="account-type border-[1px] border-[#E4E5E8] rounded-[18px] p-4 text-center cursor-pointer"
+                    id="company-account">
+                    <img src="../assests/images/profile-circle.svg" class="mx-auto mb-2 mt-1" alt="">
+                    <span class="text-[14px] font-[600] leading-[18.5px]">حساب شركة</span>
+                </div>
+                <div class="account-type border-[1px] border-[#E4E5E8] rounded-[18px] p-4 text-center cursor-pointer"
+                    id="personal-account">
+                    <img src="../assests/images/building.svg" class="mx-auto mb-2 mt-1" alt="">
+                    <span class="text-[14px] font-[600] leading-[18.5px]">حساب شخصي</span>
+                </div>
+            </div>
+
+            <form id="company-form" class="form-container" novalidate>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">الإسم
+                            الأول</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.8545 12.8198C9.68449 12.8198 7.10449 10.2398 7.10449 7.06982C7.10449 3.89982 9.68449 1.31982 12.8545 1.31982C16.0245 1.31982 18.6045 3.89982 18.6045 7.06982C18.6045 10.2398 16.0245 12.8198 12.8545 12.8198ZM12.8545 2.81982C10.5145 2.81982 8.60449 4.72982 8.60449 7.06982C8.60449 9.40982 10.5145 11.3198 12.8545 11.3198C15.1945 11.3198 17.1045 9.40982 17.1045 7.06982C17.1045 4.72982 15.1945 2.81982 12.8545 2.81982Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M21.4407 22.8198C21.0307 22.8198 20.6907 22.4798 20.6907 22.0698C20.6907 18.6198 17.1707 15.8198 12.8507 15.8198C8.53074 15.8198 5.01074 18.6198 5.01074 22.0698C5.01074 22.4798 4.67074 22.8198 4.26074 22.8198C3.85074 22.8198 3.51074 22.4798 3.51074 22.0698C3.51074 17.7998 7.70074 14.3198 12.8507 14.3198C18.0007 14.3198 22.1907 17.7998 22.1907 22.0698C22.1907 22.4798 21.8507 22.8198 21.4407 22.8198Z"
+                                    fill="#394149" />
+                            </svg>
+
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل الإسم الأول" required>
+                            <svg class="error-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">الإسم
+                            الأخير</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.8545 12.8198C9.68449 12.8198 7.10449 10.2398 7.10449 7.06982C7.10449 3.89982 9.68449 1.31982 12.8545 1.31982C16.0245 1.31982 18.6045 3.89982 18.6045 7.06982C18.6045 10.2398 16.0245 12.8198 12.8545 12.8198ZM12.8545 2.81982C10.5145 2.81982 8.60449 4.72982 8.60449 7.06982C8.60449 9.40982 10.5145 11.3198 12.8545 11.3198C15.1945 11.3198 17.1045 9.40982 17.1045 7.06982C17.1045 4.72982 15.1945 2.81982 12.8545 2.81982Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M21.4407 22.8198C21.0307 22.8198 20.6907 22.4798 20.6907 22.0698C20.6907 18.6198 17.1707 15.8198 12.8507 15.8198C8.53074 15.8198 5.01074 18.6198 5.01074 22.0698C5.01074 22.4798 4.67074 22.8198 4.26074 22.8198C3.85074 22.8198 3.51074 22.4798 3.51074 22.0698C3.51074 17.7998 7.70074 14.3198 12.8507 14.3198C18.0007 14.3198 22.1907 17.7998 22.1907 22.0698C22.1907 22.4798 21.8507 22.8198 21.4407 22.8198Z"
+                                    fill="#394149" />
+                            </svg>
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل الإسم الأخير" required>
+                            <svg class="error-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">البريد
+                            الالكتروني</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.8535 20.5698H7.85352C4.85352 20.5698 2.85352 19.0698 2.85352 15.5698V8.56982C2.85352 5.06982 4.85352 3.56982 7.85352 3.56982H17.8535C20.8535 3.56982 22.8535 5.06982 22.8535 8.56982V15.5698C22.8535 19.0698 20.8535 20.5698 17.8535 20.5698Z"
+                                    stroke="#394149" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M17.8535 9.06982L14.7235 11.5698C13.6935 12.3898 12.0035 12.3898 10.9735 11.5698L7.85352 9.06982"
+                                    stroke="#394149" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل بريدك الالكتروني" required>
+                            <svg class="error-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">رقم
+                            الهاتف</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15.8545 22.8198H9.85449C5.44449 22.8198 4.10449 21.4798 4.10449 17.0698V7.06982C4.10449 2.65982 5.44449 1.31982 9.85449 1.31982H15.8545C20.2645 1.31982 21.6045 2.65982 21.6045 7.06982V17.0698C21.6045 21.4798 20.2645 22.8198 15.8545 22.8198ZM9.85449 2.81982C6.27449 2.81982 5.60449 3.49982 5.60449 7.06982V17.0698C5.60449 20.6398 6.27449 21.3198 9.85449 21.3198H15.8545C19.4345 21.3198 20.1045 20.6398 20.1045 17.0698V7.06982C20.1045 3.49982 19.4345 2.81982 15.8545 2.81982H9.85449Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M14.8545 6.31982H10.8545C10.4445 6.31982 10.1045 5.97982 10.1045 5.56982C10.1045 5.15982 10.4445 4.81982 10.8545 4.81982H14.8545C15.2645 4.81982 15.6045 5.15982 15.6045 5.56982C15.6045 5.97982 15.2645 6.31982 14.8545 6.31982Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M12.8547 19.9298C11.5847 19.9298 10.5547 18.8998 10.5547 17.6298C10.5547 16.3598 11.5847 15.3298 12.8547 15.3298C14.1247 15.3298 15.1547 16.3598 15.1547 17.6298C15.1547 18.8998 14.1247 19.9298 12.8547 19.9298ZM12.8547 16.8198C12.4147 16.8198 12.0547 17.1798 12.0547 17.6198C12.0547 18.0598 12.4147 18.4198 12.8547 18.4198C13.2947 18.4198 13.6547 18.0598 13.6547 17.6198C13.6547 17.1798 13.2947 16.8198 12.8547 16.8198Z"
+                                    fill="#394149" />
+                            </svg>
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل اسمك الأخير" required>
+                            <svg class="error-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mb-6">
+                    <label
+                        class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">المدينة</label>
+
+                    <div class="relative flex items-center border-[1px] border-[#E4E5E8] rounded-[18px] px-3 py-2">
+                        <!-- Icon at the Start -->
+                        <svg width="20" height="20" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21.2349 21.1998C21.0349 21.1998 20.8449 21.1198 20.7049 20.9798L14.3249 14.5998C14.0349 14.3098 14.0349 13.8298 14.3249 13.5398L22.0549 5.8098C22.2449 5.6198 22.5349 5.5498 22.7949 5.6198C23.0549 5.6998 23.2549 5.90981 23.3149 6.16981C23.5049 7.01981 23.6049 7.9698 23.6049 9.0698V15.0698C23.6049 17.8398 23.0249 19.7098 21.7649 20.9798C21.6249 21.1198 21.4149 21.1498 21.2349 21.1998ZM15.9149 14.0698L21.1749 19.3298C21.8049 18.3598 22.1049 16.9798 22.1049 15.0698V9.0698C22.1049 8.6598 22.0949 8.27981 22.0649 7.91981L15.9149 14.0698Z"
+                                fill="#394149" />
+                            <path
+                                d="M7.12448 22.5498C7.06448 22.5498 7.0145 22.5398 6.9545 22.5298C3.6445 21.7698 2.10449 19.3998 2.10449 15.0698V9.06979C2.10449 3.63979 4.42449 1.31979 9.85449 1.31979H15.8545C20.1845 1.31979 22.5545 2.8598 23.3145 6.1698C23.3745 6.4198 23.2945 6.6898 23.1145 6.8698L7.65448 22.3298C7.51448 22.4698 7.32448 22.5498 7.12448 22.5498ZM9.85449 2.81979C5.24449 2.81979 3.60449 4.45979 3.60449 9.06979V15.0698C3.60449 18.5398 4.5645 20.2798 6.8945 20.9698L21.7445 6.1198C21.0645 3.7898 19.3145 2.82979 15.8445 2.82979H9.85449V2.81979Z"
+                                fill="#394149" />
+                            <path
+                                d="M15.8539 22.8198H9.85389C8.75389 22.8198 7.8139 22.7298 6.9539 22.5298C6.6839 22.4698 6.47388 22.2698 6.40388 22.0098C6.32388 21.7498 6.40388 21.4698 6.59388 21.2698L14.3239 13.5398C14.6139 13.2498 15.0939 13.2498 15.3839 13.5398L21.7639 19.9198C21.9039 20.0598 21.9839 20.2498 21.9839 20.4498C21.9839 20.6498 21.9039 20.8398 21.7639 20.9798C20.4939 22.2398 18.6239 22.8198 15.8539 22.8198ZM8.7039 21.2798C9.0639 21.3098 9.44389 21.3198 9.85389 21.3198H15.8539C17.7739 21.3198 19.1439 21.0198 20.1139 20.3898L14.8539 15.1298L8.7039 21.2798Z"
+                                fill="#394149" />
+                            <path
+                                d="M9.97443 13.3798C9.34443 13.3798 8.71442 13.1498 8.21442 12.6798C6.62442 11.1698 5.98445 9.50979 6.36445 7.88979C6.74445 6.22979 8.19443 5.10977 9.97443 5.10977C11.7544 5.10977 13.2044 6.22979 13.5844 7.88979C13.9544 9.51979 13.3144 11.1698 11.7244 12.6798C11.2344 13.1398 10.6044 13.3798 9.97443 13.3798ZM7.82444 8.21977C7.50444 9.57977 8.42443 10.7998 9.25443 11.5898C9.66443 11.9798 10.2944 11.9798 10.6944 11.5898C11.5144 10.8098 12.4344 9.58977 12.1244 8.21977C11.8544 7.02977 10.7944 6.59978 9.97443 6.59978C9.15443 6.59978 8.10444 7.02977 7.82444 8.21977Z"
+                                fill="#394149" />
+                            <path
+                                d="M10.0039 9.55978C9.45391 9.55978 9.00391 9.10978 9.00391 8.55978C9.00391 8.00978 9.44391 7.55978 10.0039 7.55978H10.0139C10.5639 7.55978 11.0139 8.00978 11.0139 8.55978C11.0139 9.10978 10.5539 9.55978 10.0039 9.55978Z"
+                                fill="#394149" />
+                        </svg>
+
+
+                        <!-- Select Dropdown -->
+                        <select class="w-full bg-transparent text-right outline-none ">
+                            <option value="" selected class="text-[#CECECE]">اختر اسم مدينتك</option>
+                            <option value="riyadh">الرياض</option>
+                            <option value="jeddah">جدة</option>
+                            <option value="dammam">الدمام</option>
+                        </select>
+
+
+
+                    </div>
+                </div>
+
+                <div class="flex items-center mb-6">
+                    <input type="checkbox" id="terms" class="ml-2 accent-[#71C19B]">
+                    <label for="terms" class="text-[#25324B] text-[14px] font-[400] leading-[19px] mb-1 text-right">
+                        من خلال إنشاء حساب، أوافق على <span class="font-[600]"> شروط الاستخدام و سياسة الخصوصية
+                        </span>الخاصة بنا
+                    </label>
+                </div>
+                <button type="submit" onclick="hanldePopup()" class="w-full bg-primary text-primary ubc-btn-primary">
+                    أنشئ حساب
+                </button>
+            </form>
+
+            <form id="personal-form" class="form-container" novalidate>
+                <div class="grid grid-cols-1 gap-5 mb-4">
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">اسم
+                            الشركة</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.3532 22.0702H4.93324C3.77324 22.0702 2.82324 21.1402 2.82324 20.0002V5.16017C2.82324 2.54017 4.77324 1.35017 7.16324 2.52017L11.6032 4.70017C12.5632 5.17017 13.3532 6.42017 13.3532 7.48017V22.0702Z"
+                                    stroke="#474647" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M22.8245 15.1299V18.9099C22.8245 21.0699 21.8245 22.0699 19.6645 22.0699H13.3545V10.4899L13.8245 10.5899L18.3245 11.5999L20.3545 12.0499C21.6745 12.3399 22.7545 13.0199 22.8145 14.9399C22.8245 14.9999 22.8245 15.0599 22.8245 15.1299Z"
+                                    stroke="#474647" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M6.35449 9.06995H9.82449" stroke="#474647" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M6.35449 13.0699H9.82449" stroke="#474647" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M18.3232 11.6003V14.8203C18.3232 16.0603 17.3132 17.0703 16.0732 17.0703C14.8332 17.0703 13.8232 16.0603 13.8232 14.8203V10.5903L18.3232 11.6003Z"
+                                    stroke="#474647" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M22.8132 14.9401C22.7532 16.1201 21.7732 17.0701 20.5732 17.0701C19.3332 17.0701 18.3232 16.0601 18.3232 14.8201V11.6001L20.3532 12.0501C21.6732 12.3401 22.7532 13.0201 22.8132 14.9401Z"
+                                    stroke="#474647" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل اسم الشركة" required>
+                            <svg class="error-icon" width="24" height="24" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                    <div class="mb-6">
+                        <label
+                            class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">المدينة</label>
+
+                        <div class="relative flex items-center border-[1px] border-[#E4E5E8] rounded-[18px] px-3 py-2">
+                            <!-- Icon at the Start -->
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21.2349 21.1998C21.0349 21.1998 20.8449 21.1198 20.7049 20.9798L14.3249 14.5998C14.0349 14.3098 14.0349 13.8298 14.3249 13.5398L22.0549 5.8098C22.2449 5.6198 22.5349 5.5498 22.7949 5.6198C23.0549 5.6998 23.2549 5.90981 23.3149 6.16981C23.5049 7.01981 23.6049 7.9698 23.6049 9.0698V15.0698C23.6049 17.8398 23.0249 19.7098 21.7649 20.9798C21.6249 21.1198 21.4149 21.1498 21.2349 21.1998ZM15.9149 14.0698L21.1749 19.3298C21.8049 18.3598 22.1049 16.9798 22.1049 15.0698V9.0698C22.1049 8.6598 22.0949 8.27981 22.0649 7.91981L15.9149 14.0698Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M7.12448 22.5498C7.06448 22.5498 7.0145 22.5398 6.9545 22.5298C3.6445 21.7698 2.10449 19.3998 2.10449 15.0698V9.06979C2.10449 3.63979 4.42449 1.31979 9.85449 1.31979H15.8545C20.1845 1.31979 22.5545 2.8598 23.3145 6.1698C23.3745 6.4198 23.2945 6.6898 23.1145 6.8698L7.65448 22.3298C7.51448 22.4698 7.32448 22.5498 7.12448 22.5498ZM9.85449 2.81979C5.24449 2.81979 3.60449 4.45979 3.60449 9.06979V15.0698C3.60449 18.5398 4.5645 20.2798 6.8945 20.9698L21.7445 6.1198C21.0645 3.7898 19.3145 2.82979 15.8445 2.82979H9.85449V2.81979Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M15.8539 22.8198H9.85389C8.75389 22.8198 7.8139 22.7298 6.9539 22.5298C6.6839 22.4698 6.47388 22.2698 6.40388 22.0098C6.32388 21.7498 6.40388 21.4698 6.59388 21.2698L14.3239 13.5398C14.6139 13.2498 15.0939 13.2498 15.3839 13.5398L21.7639 19.9198C21.9039 20.0598 21.9839 20.2498 21.9839 20.4498C21.9839 20.6498 21.9039 20.8398 21.7639 20.9798C20.4939 22.2398 18.6239 22.8198 15.8539 22.8198ZM8.7039 21.2798C9.0639 21.3098 9.44389 21.3198 9.85389 21.3198H15.8539C17.7739 21.3198 19.1439 21.0198 20.1139 20.3898L14.8539 15.1298L8.7039 21.2798Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M9.97443 13.3798C9.34443 13.3798 8.71442 13.1498 8.21442 12.6798C6.62442 11.1698 5.98445 9.50979 6.36445 7.88979C6.74445 6.22979 8.19443 5.10977 9.97443 5.10977C11.7544 5.10977 13.2044 6.22979 13.5844 7.88979C13.9544 9.51979 13.3144 11.1698 11.7244 12.6798C11.2344 13.1398 10.6044 13.3798 9.97443 13.3798ZM7.82444 8.21977C7.50444 9.57977 8.42443 10.7998 9.25443 11.5898C9.66443 11.9798 10.2944 11.9798 10.6944 11.5898C11.5144 10.8098 12.4344 9.58977 12.1244 8.21977C11.8544 7.02977 10.7944 6.59978 9.97443 6.59978C9.15443 6.59978 8.10444 7.02977 7.82444 8.21977Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M10.0039 9.55978C9.45391 9.55978 9.00391 9.10978 9.00391 8.55978C9.00391 8.00978 9.44391 7.55978 10.0039 7.55978H10.0139C10.5639 7.55978 11.0139 8.00978 11.0139 8.55978C11.0139 9.10978 10.5539 9.55978 10.0039 9.55978Z"
+                                    fill="#394149" />
+                            </svg>
+
+
+                            <!-- Select Dropdown -->
+                            <select class="w-full bg-transparent text-right outline-none ">
+                                <option value="" selected class="text-[#CECECE]">أدخل اسم مدينتك</option>
+                                <option value="riyadh">الرياض</option>
+                                <option value="jeddah">جدة</option>
+                                <option value="dammam">الدمام</option>
+                            </select>
+
+                            <!-- Arrow Icon -->
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[15px] font-[600] leading-[27px] mb-1 text-right">رقم
+                            السجل التجاري (اختياري)</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15.8545 22.8198H9.85449C5.44449 22.8198 4.10449 21.4798 4.10449 17.0698V7.06982C4.10449 2.65982 5.44449 1.31982 9.85449 1.31982H15.8545C20.2645 1.31982 21.6045 2.65982 21.6045 7.06982V17.0698C21.6045 21.4798 20.2645 22.8198 15.8545 22.8198ZM9.85449 2.81982C6.27449 2.81982 5.60449 3.49982 5.60449 7.06982V17.0698C5.60449 20.6398 6.27449 21.3198 9.85449 21.3198H15.8545C19.4345 21.3198 20.1045 20.6398 20.1045 17.0698V7.06982C20.1045 3.49982 19.4345 2.81982 15.8545 2.81982H9.85449Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M14.8545 6.31982H10.8545C10.4445 6.31982 10.1045 5.97982 10.1045 5.56982C10.1045 5.15982 10.4445 4.81982 10.8545 4.81982H14.8545C15.2645 4.81982 15.6045 5.15982 15.6045 5.56982C15.6045 5.97982 15.2645 6.31982 14.8545 6.31982Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M12.8547 19.9298C11.5847 19.9298 10.5547 18.8998 10.5547 17.6298C10.5547 16.3598 11.5847 15.3298 12.8547 15.3298C14.1247 15.3298 15.1547 16.3598 15.1547 17.6298C15.1547 18.8998 14.1247 19.9298 12.8547 19.9298ZM12.8547 16.8198C12.4147 16.8198 12.0547 17.1798 12.0547 17.6198C12.0547 18.0598 12.4147 18.4198 12.8547 18.4198C13.2947 18.4198 13.6547 18.0598 13.6547 17.6198C13.6547 17.1798 13.2947 16.8198 12.8547 16.8198Z"
+                                    fill="#394149" />
+                            </svg>
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل رقم السجل التجاري" required>
+                            <svg class="error-icon" width="22" height="22" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-4">
+                    <div class="form-group">
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">البريد
+                            الالكتروني</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.8535 20.5698H7.85352C4.85352 20.5698 2.85352 19.0698 2.85352 15.5698V8.56982C2.85352 5.06982 4.85352 3.56982 7.85352 3.56982H17.8535C20.8535 3.56982 22.8535 5.06982 22.8535 8.56982V15.5698C22.8535 19.0698 20.8535 20.5698 17.8535 20.5698Z"
+                                    stroke="#394149" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M17.8535 9.06982L14.7235 11.5698C13.6935 12.3898 12.0035 12.3898 10.9735 11.5698L7.85352 9.06982"
+                                    stroke="#394149" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل بريدك الالكتروني" required>
+                            <svg class="error-icon" width="22" height="22" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+
+                    </div>
+                    <div class="form-group">
+
+                        <label class="block text-[#474647] text-[16px] font-[600] leading-[27px] mb-1 text-right">رقم
+                            الهاتف</label>
+                        <div class="input-icon">
+                            <svg width="20" height="20" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15.8545 22.8198H9.85449C5.44449 22.8198 4.10449 21.4798 4.10449 17.0698V7.06982C4.10449 2.65982 5.44449 1.31982 9.85449 1.31982H15.8545C20.2645 1.31982 21.6045 2.65982 21.6045 7.06982V17.0698C21.6045 21.4798 20.2645 22.8198 15.8545 22.8198ZM9.85449 2.81982C6.27449 2.81982 5.60449 3.49982 5.60449 7.06982V17.0698C5.60449 20.6398 6.27449 21.3198 9.85449 21.3198H15.8545C19.4345 21.3198 20.1045 20.6398 20.1045 17.0698V7.06982C20.1045 3.49982 19.4345 2.81982 15.8545 2.81982H9.85449Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M14.8545 6.31982H10.8545C10.4445 6.31982 10.1045 5.97982 10.1045 5.56982C10.1045 5.15982 10.4445 4.81982 10.8545 4.81982H14.8545C15.2645 4.81982 15.6045 5.15982 15.6045 5.56982C15.6045 5.97982 15.2645 6.31982 14.8545 6.31982Z"
+                                    fill="#394149" />
+                                <path
+                                    d="M12.8547 19.9298C11.5847 19.9298 10.5547 18.8998 10.5547 17.6298C10.5547 16.3598 11.5847 15.3298 12.8547 15.3298C14.1247 15.3298 15.1547 16.3598 15.1547 17.6298C15.1547 18.8998 14.1247 19.9298 12.8547 19.9298ZM12.8547 16.8198C12.4147 16.8198 12.0547 17.1798 12.0547 17.6198C12.0547 18.0598 12.4147 18.4198 12.8547 18.4198C13.2947 18.4198 13.6547 18.0598 13.6547 17.6198C13.6547 17.1798 13.2947 16.8198 12.8547 16.8198Z"
+                                    fill="#394149" />
+                            </svg>
+
+                            <input type="text"
+                                class="w-full px-3 py-2 border-[1px] border-[#E4E5E8] rounded-[18px] text-right placeholder-[#CECECE]"
+                                placeholder="أدخل رقم  هاتفك" required>
+                            <svg class="error-icon" width="22" height="22" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="10" fill="#FF4B55" />
+                                <path d="M10 6v5M10 14h.01" stroke="white" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <div class="error-message text-right">يرجى إدخال جميع الحقول المطلوبة</div>
+                    </div>
+
+                </div>
+
+                <div class="flex items-center mb-6">
+                    <input type="checkbox" id="terms" class="ml-2 accent-[#71C19B]">
+                    <label for="terms" class="text-[#25324B] text-[14px] font-[400] leading-[19px] mb-1 text-right">
+                        من خلال إنشاء حساب، أوافق على <span class="font-[600]"> شروط الاستخدام و سياسة الخصوصية
+                        </span>الخاصة بنا
+                    </label>
+                </div>
+                <button type="submit" onclick="hanldePopup()" class="w-full bg-primary text-primary ubc-btn-primary">
+                    أنشئ حساب
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="flex justify-center my-20">
+        <img src="../assests/images/home-footer-banner.svg" alt="">
+    </div>
+    <footer dir="rtl" class="bg-[#5660A8] w-full text-white py-10">
+        <div class="max-w-[1536px] mx-auto px-5 grid grid-cols-1 md:grid-cols-12 gap-8">
+          <!-- Left Section -->
+          <div class="md:col-span-7 flex flex-col md:flex-row gap-8 md:gap-[40px] justify-center">
+            <!-- Logo & Social -->
+            <div class="text-center md:text-left">
+              <img src="../assests/images/footer-logo.svg" alt="" class="mx-auto md:mx-0">
+              <div class="flex gap-4 justify-center md:justify-start mt-4">
+                <img src="../assests/images/youtubeIcon.svg" alt="">
+                <img src="../assests/images/xIcon.svg" alt="">
+                <img src="../assests/images/facebookIcon.svg" alt="">
+                <img src="../assests/images/instagramIcon.svg" alt="">
+              </div>
+            </div>
+    
+            <!-- Links Container -->
+            <div class="flex flex-col sm:flex-row gap-8 md:gap-16 justify-center">
+              <!-- Useful Links -->
+              <div class="text-center md:text-right">
+                <h3 class="text-lg font-semibold mb-3">روابط مفيدة</h3>
+                <ul class="space-y-2">
+                  <li><a href="index.html" class="hover:underline">تواصل معنا</a></li>
+                  <li><a href="pages/who-we-are.html" class="hover:underline">من نحن</a></li>
+                  <li><a href="pages/terms-and-condition.html" class="hover:underline">الشروط والأحكام</a>
+                  </li>
+                  <li><a href="pages/privacy-policy.html" class="hover:underline">سياسة الخصوصية</a></li>
+                </ul>
+              </div>
+    
+              <!-- Shopping Links -->
+              <div class="text-center md:text-right">
+                <h3 class="text-lg font-semibold mb-3">التسوق</h3>
+                <ul class="space-y-2">
+                  <li><a href="#" class="hover:underline">اطلب كميتك الآن</a></li>
+                  <li><a href="#" class="hover:underline">المنتجات</a></li>
+                </ul>
+              </div>
+    
+              <!-- Site Navigation -->
+              <div class="text-center md:text-right">
+                <h3 class="text-lg font-semibold mb-3">في الموقع</h3>
+                <ul class="space-y-2">
+                  <li><a href="#" class="hover:underline">الرئيسية</a></li>
+                  <li><a href="#" class="hover:underline">مياهنا</a></li>
+                  <li><a href="#" class="hover:underline">منتجاتنا</a></li>
+                  <li><a href="#" class="hover:underline">لماذا نحن</a></li>
+                  <li><a href="#" class="hover:underline">كيف تبدأ</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+    
+          <!-- App Download Section -->
+          <div
+            class="md:col-span-5 py-5 md:py-0 text-center md:text-right px-4 md:px-[23px] h-auto md:h-[202px] w-full md:w-[429px] rounded-[20px] bg-[#FFFFFF1A] flex flex-col justify-center items-center mx-auto">
+            <p class="text-lg mb-4 px-2 md:px-0">
+              حمل تطبيقنا الآن وابدأ بالتميز! زجاجات مياه مصممة لك، تجربة سهلة وممتعة بين يديك 💧
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+              <button
+                class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                <img src="../assests/images/Apple_App_Store.svg" alt="App Store" width="20">
+                App Store
+              </button>
+              <button
+                class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                <img src="../assests/images/Google_Play.svg" alt="Play Store" width="20">
+                Play Store
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Copyright -->
+        <div class="max-w-[1536px] mx-auto mt-10 md:mt-20">
+          <p class="text-center md:text-right mx-4 md:mx-36 text-sm md:text-base">جميع الحقوق محفوظة لدى شركة المتحدة
+            للمرطبات 2024 ©</p>
+        </div>
+      </footer>
+    
+      <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+    
+        mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+    
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+          if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+            mobileMenu.classList.add('hidden');
+          }
+        });
+    
+        // Include your existing dropdown functions here
+        function setupDropdown(toggleId, dropdownId) {
+          // ... your existing dropdown code ...
+        }
+    
+        function handleNotificationPopup(toggleId, popupId) {
+          // ... your existing notification code ...
+        }
+      </script>
+</body>
+
+
+<script>
+    const companyAccount = document.getElementById('company-account');
+    const personalAccount = document.getElementById('personal-account');
+    const companyForm = document.getElementById('company-form');
+    const personalForm = document.getElementById('personal-form');
+
+    function switchForm(showCompany) {
+        if (showCompany) {
+            companyForm.classList.add('active');
+            personalForm.classList.remove('active');
+            companyAccount.classList.add('active');
+            personalAccount.classList.remove('active');
+        } else {
+            personalForm.classList.add('active');
+            companyForm.classList.remove('active');
+            personalAccount.classList.add('active');
+            companyAccount.classList.remove('active');
+        }
+    }
+
+    companyAccount.addEventListener('click', () => switchForm(true));
+    personalAccount.addEventListener('click', () => switchForm(false));
+
+    switchForm(true);
+
+    document.getElementById('company-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Reset all error states first
+        const formGroups = this.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            group.classList.remove('error');
+            const input = group.querySelector('input, select');
+            input.classList.remove('error-input');
+        });
+
+        // Check each required field
+        let hasErrors = false;
+        const requiredFields = this.querySelectorAll('[required]');
+
+        requiredFields.forEach(field => {
+            const formGroup = field.closest('.form-group');
+            if (!field.value.trim()) {
+                formGroup.classList.add('error');
+                field.classList.add('error-input');
+                hasErrors = true;
+            }
+        });
+
+        if (!hasErrors) {
+            // Form is valid, proceed with submission
+            console.log('Form submitted successfully');
+        }
+    });
+
+    // Remove error states when user starts typing
+    document.querySelectorAll('input, select').forEach(field => {
+        field.addEventListener('input', function () {
+            const formGroup = this.closest('.form-group');
+            if (this.value.trim()) {
+                formGroup.classList.remove('error');
+                this.classList.remove('error-input');
+            }
+        });
+    });
+
+    document.getElementById('personal-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Reset all error states first
+        const formGroups = this.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            group.classList.remove('error');
+            const input = group.querySelector('input, select');
+            input.classList.remove('error-input');
+        });
+
+        // Check each required field
+        let hasErrors = false;
+        const requiredFields = this.querySelectorAll('[required]');
+
+        requiredFields.forEach(field => {
+            const formGroup = field.closest('.form-group');
+            if (!field.value.trim()) {
+                formGroup.classList.add('error');
+                field.classList.add('error-input');
+                hasErrors = true;
+            }
+        });
+
+        if (!hasErrors) {
+            // Form is valid, proceed with submission
+            console.log('Form submitted successfully');
+        }
+    });
+
+    // Remove error states when user starts typing
+    document.querySelectorAll('input, select').forEach(field => {
+        field.addEventListener('input', function () {
+            const formGroup = this.closest('.form-group');
+            if (this.value.trim()) {
+                formGroup.classList.remove('error');
+                this.classList.remove('error-input');
+            }
+        });
+    });
+</script>
+
+</html>

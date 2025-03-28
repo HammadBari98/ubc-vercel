@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../src/output.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link href="../src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assests/css/home-slider.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="../assests/js/home-slider.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Navbar Container start here -->
+    <nav dir="rtl" class="bg-white shadow-md z-50">
+      <div class="container mx-auto px-4">
+          <!-- Main Nav Container -->
+          <div class="flex justify-between items-center h-16 md:h-20">
+              <!-- Left Section (Logo) -->
+              <a href="../index.html">
+                <img src="../assests/images/logo-ar.svg" alt="Logo" class="h-10 md:h-12 z-50">
+            </a>
+
+              <!-- Middle Section (Desktop Navigation) -->
+              <div class="hidden lg:flex">
+                  <ul class="flex gap-6 xl:gap-8">
+                      <li class="navbarFonts"><a href="../index.html">الرئيسية</a></li>
+                      <li class="navbarFonts"><a href="../index.html">مياهنا</a></li>
+                      <li class="navbarFonts"><a href="../index.html">منتجاتنا</a></li>
+                      <li class="navbarFonts"><a href="../index.html">لماذا نحن</a></li>
+                      <li class="navbarFonts"><a href="../index.html">كيف تبدأ</a></li>
+                  </ul>
+              </div>
+
+              <!-- Right Section (Desktop) -->
+              <div class="hidden lg:flex gap-6 items-center">
+
+                  <div class="relative ">
+                      <!-- <div class="flex items-center gap-2 justify-center">
+                          <button onclick="setupDropdown('anotherToggle','lang-dropdown')" class="cursor-pointer">
+                              <img id="anotherToggle" src="../assests/images/down-arrow.svg" alt="">
+                          </button>
+                          <img src="../assests/images/aen.svg" alt="">
+                          <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                      </div>
+                      <div id="lang-dropdown"
+                          class="bg-white w-[150px] h-[106px] -left-10 language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-2 absolute">
+                          <div class="flex gap-2">
+                              <p>العربية</p>
+                              <img src="../assests/images/arabic-flag.svg" alt="">
+                          </div>
+                          <div class="flex gap-2">
+                              <p>English</p>
+                              <img src="../assests/images/english-flag.svg" alt="">
+                          </div>
+                      </div> -->
+                      <div class="gtranslate_wrapper"></div>
+                      <script>window.gtranslateSettings = {"default_language":"ar","languages":["ar","en"],"wrapper_selector":".gtranslate_wrapper"}</script>
+                      <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>    
+                  </div>
+
+                  <div>
+
+                      <a href="upload.html">
+                          <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                          </a>
+                      <!-- bell-icon -->
+                  </div>
+
+                  <div class="relative">
+                      <!-- cart-icon -->
+                      <button id="notification-toggle"
+                          onclick="handleNotificationPopup('notification-toggle','empty-notification-popup')"
+                          class="cursor-pointer">
+                          <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                      </button>
+                      <!-- empty notification popup start here -->
+                      <div id="empty-notification-popup"
+                          class="bg-white w-[320px] min-h-[366px]  language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-6 absolute">
+                          <img src="../assests/images/no-notification.svg" alt="">
+                          <p>You currently have no notifications! 🕊️</p>
+                      </div>
+                      <!-- empty notification popup end here -->
+
+                      <!-- filled notification popup start here -->
+                      <div id="filled-notification-popup"
+                          class="px-[14px] py-[24px] bg-white min-w-[320px] min-h-[366px] right-0 language-change-dropdown rounded-[20px]  hidden flex-col gap-2 absolute">
+                          <div class="flex relative gap-3">
+                              <div>
+                                  <div
+                                      class="w-[44px] rounded-full relative flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                      <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                      <div class="w-[10px] h-[10px] bg-[#F31629] absolute top-0 right-0 rounded-full">
+
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="flex flex-col gap-1 ">
+                                  <p class="font-[600] text-[16px] ">وصلت زجاجاتك المخصصة!</p>
+                                  <p class="font-[400] text-[10px] leading-[20px]">تم تسليم طلبك بنجاح. نتمنى أن تضيف
+                                      زجاجاتنا لمسة
+                                      مميزة
+                                      لمناسبتك! شكرًا لاختيارك لنا.</p>
+                              </div>
+                              <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                  03:50 م
+                              </span>
+                          </div>
+                          <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                          <div class="flex relative gap-3">
+                              <div>
+                                  <div
+                                      class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                      <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                  </div>
+                              </div>
+                              <div class="flex flex-col gap-1 ">
+                                  <p class="font-[600] text-[16px] ">تذكير بموعد التوصيل</p>
+                                  <p class="font-[400] text-[10px] leading-[20px]">تذكير سريع! من المتوقع وصول طلبك
+                                      غدًا. تأكد من وجود
+                                      شخص
+                                      متاح للاستلام</p>
+                              </div>
+                              <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                  منذ 1 د
+                              </span>
+                          </div>
+                          <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                          <div class="flex relative gap-3">
+                              <div>
+                                  <div
+                                      class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                      <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                  </div>
+                              </div>
+                              <div class="flex flex-col gap-1 ">
+                                  <p class="font-[600] text-[16px] ">تم شحن طلبك!</p>
+                                  <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                      تتبع شحنته ومشاهدة
+                                      تفاصيل التوصيل من خلال حسابك.</p>
+                              </div>
+                              <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                  03:50 م
+                              </span>
+                          </div>
+                          <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                          <div class="flex relative gap-3">
+                              <div>
+                                  <div
+                                      class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                      <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                  </div>
+                              </div>
+                              <div class="flex flex-col gap-1 ">
+                                  <p class="font-[600] text-[16px] ">طلبك قيد المعالجة!</p>
+                                  <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                      تتبع شحنته ومشاهدة
+                                      تفاصيل التوصيل من خلال حسابك.</p>
+                              </div>
+                              <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                  03:50 م
+                              </span>
+                          </div>
+                      </div>
+                      <!-- filled notification popup start here -->
+
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                      <button id="openPopup" onclick="openPopup('loginPopup', 'loginOverlay')"
+                          class="cursor-pointer">سجل
+                          دخول</button>
+                      <div
+                          class="w-[44px] h-[44px] border flex border-[#E8E8E8] justify-center items-center rounded-full">
+                          <img src="../assests/images/login-user.svg" width="24" height="24" alt="">
+                      </div>
+                      <!-- login-button -->
+                  </div>
+
+                  <!-- login pop up which will open on click ==start here== -->
+
+                  <div id="loginOverlay" class="overlay hidden"></div>
+                  <div dir="rtl" id="loginPopup"
+                      class="popup bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[460px] w-[600px]  language-change-dropdown rounded-[20px] ">
+                      <div class="text-center mx-auto">
+                          <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                          <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                      </div>
+                      <div class="flex flex-col gap-8 mt-8">
+                          <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رقم جوالك لتسجيل الدخول
+                              لحسابك أو إنشاء
+                              حساب جديد.</p>
+                          <p class="text-[16px] font-[400] text-[#25324B]">رقم الهاتف</p>
+                      </div>
+                      <div class="flex justify-center gap-2 mt-8">
+                          <div
+                              class="w-[424px] relative h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7] ">
+                              <input type="text" class="border-none outline-0 w-[424px] px-10"
+                                  placeholder="أدخل رقم الهاتف">
+                              <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5" alt="">
+                          </div>
+                          <div
+                              class="w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7] ">
+                              <img src="../assests/images/countrySelectSA.svg" alt="">
+                              <span>+966</span>
+                          </div>
+                      </div>
+                      <div id="login-input-alert" class="flex gap-1.5 items-center mt-2">
+                          <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                          <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء حساب.
+                          </p>
+                      </div>
+                      <div class="flex justify-center items-center mt-8">
+                          <button onclick="openOtpPopup()" class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                              التالي
+                          </button>
+                      </div>
+                  </div>
+
+                  <div dir="ltr" id="otpPopup"
+                      class="popup bg-white p-[32px] hidden flex-col max-h-[508px] min-h-[460px] w-[600px]  language-change-dropdown rounded-[20px] ">
+                      <div class="text-center mx-auto">
+                          <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                          <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                      </div>
+                      <div class="flex flex-col gap-8 mt-8">
+                          <div class="flex justify-end gap-1 items-center">
+                              <span>+966 596 338 44 65</span>
+                              <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رمز التحقق OTP المرسل على
+                                  الرقم </p>
+                          </div>
+                          <p class="text-[16px] font-[400] text-[#25324B] text-right">رقم الهاتف</p>
+                      </div>
+                      <div class="otp-container flex justify-center">
+                          <input type="text" class="otp-input" maxlength="1">
+                          <input type="text" class="otp-input" maxlength="1">
+                          <input type="text" class="otp-input" maxlength="1">
+                          <input type="text" class="otp-input" maxlength="1">
+                      </div>
+                      <div id="login-input-alert" class="flex justify-end gap-1.5 items-center mt-2">
+                          <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء حساب.
+                          </p>
+                          <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                      </div>
+                      <p class="text-[16px] mt-5 font-[400] text-[#25324B] text-right">إعادة الارسال</p>
+                      <div class="flex justify-center items-center mt-8">
+                          <button onclick="closeOtpPopup()" class="w-[536px] ubc-btn-primary bg-primary text-primary">
+                              تسجيل دخول
+                          </button>
+                      </div>
+                  </div>
+                  <!-- login pop up which will open on click ==end here== -->
+                  <div>
+                      <button class="bg-primary text-primary ubc-btn-primary"
+                          onclick="window.location.href='#our-products'">أطلب كميتك الآن</button>
+                  </div>
+              </div>
+
+              <!-- Mobile Menu Button -->
+              <div class="lg:hidden flex">
+                  <button id="mobile-menu-button" class="p-2">
+                      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16" />
+                      </svg>
+                  </button>
+              </div>
+          </div>
+
+          <!-- Mobile Menu (Hidden by default) -->
+          <div id="mobile-menu" class="hidden lg:hidden absolute  bg-white w-full left-0 z-50 shadow-lg">
+              <div class="px-4 py-6 space-y-6">
+                  <!-- Mobile Navigation Links -->
+                  <ul class="flex flex-col gap-4">
+                      <li class="navbarFonts"><a href="../index.html">الرئيسية</a></li>
+                      <li class="navbarFonts"><a href="../index.html">مياهنا</a></li>
+                      <li class="navbarFonts"><a href="../index.html">منتجاتنا</a></li>
+                      <li class="navbarFonts"><a href="../index.html" dir="ltr">لماذا نحن</a></li>
+                      <li class="navbarFonts"><a href="../index.html">كيف تبدأ</a></li>
+                  </ul>
+
+                  <!-- Mobile Right Section Content -->
+                  <div class="flex flex-col gap-6 md:items-center ">
+                      <div class="relative">
+                          <div class="flex md:items-center gap-2 md:justify-center">
+                              <button onclick="setupDropdown('mobile-toggle','mob-lang-dropdown')"
+                                  class="cursor-pointer">
+                                  <img id="mobile-toggle" src="../assests/images/down-arrow.svg" alt="">
+                              </button>
+                              <img src="../assests/images/aen.svg" alt="">
+                              <img src="../assests/images/globe.svg" width="24" height="24" alt="">
+                          </div>
+                          <!-- language dropdown -->
+                          <div id="mob-lang-dropdown"
+                              class="bg-white w-[150px] z-50 h-[106px] right-0 language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col gap-2 absolute">
+                              <div class="flex gap-2">
+                                  <p>العربية</p>
+                                  <img src="../assests/images/arabic-flag.svg" alt="">
+                              </div>
+                              <div class="flex gap-2">
+                                  <p>English</p>
+                                  <img src="../assests/images/english-flag.svg" alt="">
+                              </div>
+                          </div>
+                      </div>
+
+                      <div>
+
+                          <a href="upload.html">
+                              <img src="../assests/images/cart-Icon.svg" width="24" height="27" alt="">
+                              </a>
+                          <!-- bell-icon -->
+                      </div>
+
+                      <div class="relative">
+                          <!-- cart-icon -->
+                          <button id="mob-notification-toggle"
+                              onclick="handleNotificationPopup('mob-notification-toggle','mob-empty-notification-popup')"
+                              class="cursor-pointer">
+                              <img src="../assests/images/bell.svg" width="24" height="27" alt="">
+                          </button>
+                          <!-- empty notification popup start here -->
+                          <div id="mob-empty-notification-popup"
+                              class="bg-white w-[320px] min-h-[366px]  language-change-dropdown rounded-[20px] justify-center items-center hidden flex-col -bottom-28 right-[27px] gap-6 absolute">
+                              <img src="../assests/images/no-notification.svg" alt="">
+                              <p>You currently have no notifications! 🕊️</p>
+                          </div>
+                          <!-- empty notification popup end here -->
+
+                          <!-- filled notification popup start here -->
+                          <div id="filled-notification-popup"
+                              class="px-[14px] py-[24px] bg-white min-w-[320px] min-h-[366px] right-0 language-change-dropdown rounded-[20px]  hidden flex-col gap-2 absolute">
+                              <div class="flex relative gap-3">
+                                  <div>
+                                      <div
+                                          class="w-[44px] rounded-full relative flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                          <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                          <div
+                                              class="w-[10px] h-[10px] bg-[#F31629] absolute top-0 right-0 rounded-full">
+
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="flex flex-col gap-1 ">
+                                      <p class="font-[600] text-[16px] ">وصلت زجاجاتك المخصصة!</p>
+                                      <p class="font-[400] text-[10px] leading-[20px]">تم تسليم طلبك بنجاح. نتمنى أن
+                                          تضيف زجاجاتنا لمسة
+                                          مميزة
+                                          لمناسبتك! شكرًا لاختيارك لنا.</p>
+                                  </div>
+                                  <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                      03:50 م
+                                  </span>
+                              </div>
+                              <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                              <div class="flex relative gap-3">
+                                  <div>
+                                      <div
+                                          class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                          <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                      </div>
+                                  </div>
+                                  <div class="flex flex-col gap-1 ">
+                                      <p class="font-[600] text-[16px] ">تذكير بموعد التوصيل</p>
+                                      <p class="font-[400] text-[10px] leading-[20px]">تذكير سريع! من المتوقع وصول
+                                          طلبك غدًا. تأكد من وجود
+                                          شخص
+                                          متاح للاستلام</p>
+                                  </div>
+                                  <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                      منذ 1 د
+                                  </span>
+                              </div>
+                              <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                              <div class="flex relative gap-3">
+                                  <div>
+                                      <div
+                                          class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                          <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                      </div>
+                                  </div>
+                                  <div class="flex flex-col gap-1 ">
+                                      <p class="font-[600] text-[16px] ">تم شحن طلبك!</p>
+                                      <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                          تتبع شحنته ومشاهدة
+                                          تفاصيل التوصيل من خلال حسابك.</p>
+                                  </div>
+                                  <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                      03:50 م
+                                  </span>
+                              </div>
+                              <div style="border-width: 0.5px;" class="border-[#e7e7e772]"></div>
+                              <div class="flex relative gap-3">
+                                  <div>
+                                      <div
+                                          class="w-[44px] rounded-full  flex justify-center items-center h-[44px] bg-[#F1F3FA]">
+                                          <img src="../assests/images/notification-inside-bellIcon.svg" alt="">
+                                      </div>
+                                  </div>
+                                  <div class="flex flex-col gap-1 ">
+                                      <p class="font-[600] text-[16px] ">طلبك قيد المعالجة!</p>
+                                      <p class="font-[400] text-[10px] leading-[20px]">طلبك الآن في الطريق إليك! يمكنك
+                                          تتبع شحنته ومشاهدة
+                                          تفاصيل التوصيل من خلال حسابك.</p>
+                                  </div>
+                                  <span class="absolute left-0  text-[12px] font-[400] text-[#A6A6A6] ">
+                                      03:50 م
+                                  </span>
+                              </div>
+                          </div>
+                          <!-- filled notification popup start here -->
+
+                      </div>
+
+                      <div class="flex items-center gap-3">
+                          <button id="mob-openPopup" onclick="openPopup('mob-loginPopup', 'mob-loginOverlay')"
+                              class="cursor-pointer">سجل دخول</button>
+                          <div
+                              class="w-[44px] h-[44px] border flex border-[#E8E8E8] justify-center items-center rounded-full">
+                              <img src="../assests/images/login-user.svg" width="24" height="24" alt="">
+                          </div>
+                          <!-- login-button -->
+                      </div>
+
+                      <!-- login pop up which will open on click ==start here== -->
+
+                      <div id="mob-loginOverlay" class="overlay hidden "></div>
+                      <div dir="rtl" id="mob-loginPopup"
+                          class="popup bg-white p-[32px] hidden flex-col w-[95%]  language-change-dropdown rounded-[20px] ">
+                          <div class="text-center mx-auto">
+                              <div class="w-[80px] mx-auto h-[80px] bg-secondary01 rounded-full"></div>
+                              <span class="text-center text-[24px] font-[700] ">تسجيل دخول</span>
+                          </div>
+                          <div class="flex flex-col gap-8 mt-8">
+                              <p class="text-[16px] font-[400] text-[#25324B]">من فضلك، أدخل رقم جوالك لتسجيل الدخول
+                                  لحسابك أو إنشاء
+                                  حساب جديد.</p>
+                              <p class="text-[16px] font-[400] text-[#25324B]">رقم الهاتف</p>
+                          </div>
+                          <!-- <div class="flex justify-center gap-2 mt-8">
+                    <div class=" relative h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7] ">
+                      <input type="text" class="border-none outline-0  px-10" placeholder="أدخل رقم الهاتف" >
+                      <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5" alt="">
+                    </div>
+                    <div class="w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7] ">
+                      <img src="../assests/images/countrySelectSA.svg" alt="">
+                      <span>+966</span>
+                    </div>
+                  </div> -->
+                          <div class="flex flex-col sm:flex-row justify-center gap-2 mt-8 w-full px-4">
+                              <!-- Input Field -->
+                              <div
+                                  class="relative w-full sm:w-auto h-[49px] rounded-[16px] flex gap-1.5 items-center justify-center border-2 border-[#E7E7E7]">
+                                  <input type="text"
+                                      class="w-full sm:w-auto border-none outline-0 px-10 py-2 text-center sm:text-left"
+                                      placeholder="أدخل رقم الهاتف">
+                                  <img src="../assests/images/inputfieldMobileIcon.svg" class="absolute right-2.5"
+                                      alt="">
+                              </div>
+
+                              <!-- Country Code Selector -->
+                              <div
+                                  class="w-full sm:w-[100px] h-[49px] rounded-[16px] flex gap-1.5 items-center border-2 justify-center border-[#E7E7E7]">
+                                  <img src="../assests/images/countrySelectSA.svg" alt="">
+                                  <span>+966</span>
+                              </div>
+                          </div>
+
+                          <div id="login-input-alert" class="flex gap-1.5 items-center mt-2">
+                              <img src="../assests/images/traingleInputAlert.svg" class="pt-1" alt="">
+                              <p class="text-red-500 text-[14px] font-[400]">رقم الهاتف غير مسجل لدينا، قم بإنشاء
+                                  حساب.</p>
+                          </div>
+                          <div class="flex justify-center items-center mt-8">
+                              <button class="w-full ubc-btn-primary bg-primary text-primary">
+                                  التالي
+                              </button>
+                          </div>
+                      </div>
+
+                      <!-- login pop up which will open on click ==end here== -->
+
+                      <div>
+                          <button class="bg-primary text-primary ubc-btn-primary">أطلب كميتك الآن</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </nav>
+    <!-- navbar end here -->
+
+
+    <div dir="rtl" class=" bg-[#EEEFF64D] py-4">
+        <div class="max-w-[1300px]  mx-auto">
+            <div class="md:mx-20 mx-10 flex items-center gap-3">
+                <p class="text-[12px] font-[500] text-[#7E7E7E]">الرئيسية</p>
+                <div class="w-[10px] h-[1px] bg-[#7E7E7E]"></div>
+                <p class="text-[12px] font-[500] text-[#4E5EA5]">الطلب</p>
+            </div>
+        </div>
+    </div>
+
+
+   
+    <div class="mt-10">
+        <h2 class="text-[20px] font-[700] text-secondary01 text-center">ارفع الشعار, التصميم, الصورة</h2>
+    </div>
+    <div dir="rtl" class="max-w-[1300px] mx-auto">
+        <div class="flex lg:flex-row flex-col-reverse items-center lg:items-stretch lg:mx-0 mx-5 justify-center gap-10">
+            <div class="border-[1px] border-[#E4E5E8] rounded-[22px]  h-[500px] md:w-[500px] w-[300px]  pb-5 px-5 my-10 md:mx-0 mx-5 relative overflow-hidden">
+                <div id="image-container" class="h-full w-full relative">
+                    <img id="main-image" class="h-full w-full object-contain" src="../assests/images/demoBottle.svg" alt="Uploaded Image">
+                    <div id="magnifier" class="absolute hidden w-32 h-32 bg-repeat rounded-full border-2 border-white shadow-lg pointer-events-none overflow-hidden"></div>
+                </div>
+            </div>
+        
+            <div class="border-[1px] flex flex-col justify-evenly h-[500px] border-[#E4E5E8] max-w-[629px] rounded-[22px] pb-5 px-5 my-10 md:mx-0 mx-5">
+                <p class="text-[#474647] text-[18px] font-700">قم بتحميل الشعار أو التصميم الذي ترغب بطباعته على الزجاجة</p>
+                <div class="text-[#7E7E7E] text-[16px] font-[400]" >
+                    <p>يرجى التأكد من أن التصميم يطابق القياسات المحددة (330 مل: 10x20 سم،
+                        550 مل: 12x24 سم)</p>
+                    <p>الصيغ المدعومة: PNG ،PDF ،PSD ،JPEG، بحجم أقصى 5 ميغابايت، ودقة عالية للحصول على أفضل جودة</p>
+
+                </div>
+
+                <div class="upload-box border-2 border-dashed flex justify-evenly items-center border-gray-300 p-5 text-center bg-[rgba(115,130,200,0.1)] max-w-[565px] h-[136px] flex-wrap rounded-lg">
+                    <img src="../assests/images/upload-cloudIcon.svg" alt="">
+                    <input type="file" id="fileInput" accept="image/*">
+                    <p>أو</p>
+                    <label class="bg-primary ubc-btn-primary text-primary" for="fileInput">تصفح الملفات</label>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <img src="../assests/images/folderIcon.svg" alt="">
+                    <span class="text-[#7E7E7E] text-[16px] font-[400]">الملف المرفوع: شعار عبوة المياه
+                        50KB</span>
+                </div>
+                <div class="flex justify-center gap-3">
+   
+                    <a href="contactdet.html" class="text-center ubc-btn-primary bg-primary text-primary w-full">حفظ التعديل</a>
+   
+                    <a href="contactdet.html" class="text-center ubc-btn-primary bg-secondary02  border-[1px] border-[#E4E5E8] w-full">رجوع</a>
+   
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer dir="rtl" class="bg-[#5660A8] w-full text-white py-10">
+      <div class="max-w-[1536px] mx-auto px-5 grid grid-cols-1 md:grid-cols-12 gap-8">
+          <!-- Left Section -->
+          <div class="md:col-span-7 flex flex-col md:flex-row gap-8 md:gap-[40px] justify-center">
+              <!-- Logo & Social -->
+              <div class="text-center md:text-left">
+                  <img src="../assests/images/footer-logo.svg" alt="" class="mx-auto md:mx-0">
+                  <div class="flex gap-4 justify-center md:justify-start mt-4">
+                      <img src="../assests/images/youtubeIcon.svg" alt="">
+                      <img src="../assests/images/xIcon.svg" alt="">
+                      <img src="../assests/images/facebookIcon.svg" alt="">
+                      <img src="../assests/images/instagramIcon.svg" alt="">
+                  </div>
+              </div>
+
+              <!-- Links Container -->
+              <div class="flex flex-col sm:flex-row gap-8 md:gap-16 justify-center">
+                  <!-- Useful Links -->
+                  <div class="text-center md:text-right">
+                      <h3 class="text-lg font-semibold mb-3">روابط مفيدة</h3>
+                      <ul class="space-y-2">
+                          <li><a href="../index.html" class="hover:underline">تواصل معنا</a></li>
+                          <li><a href="who-we-are.html" class="hover:underline">من نحن</a></li>
+                          <li><a href="terms-and-condition.html" class="hover:underline">الشروط والأحكام</a>
+                          </li>
+                          <li><a href="privacy-policy.html" class="hover:underline">سياسة الخصوصية</a></li>
+                      </ul>
+                  </div>
+
+                  <!-- Shopping Links -->
+                  <div class="text-center md:text-right">
+                      <h3 class="text-lg font-semibold mb-3">التسوق</h3>
+                      <ul class="space-y-2">
+                          <li><a href="#" class="hover:underline">اطلب كميتك الآن</a></li>
+                          <li><a href="#" class="hover:underline">المنتجات</a></li>
+                      </ul>
+                  </div>
+
+                  <!-- Site Navigation -->
+                  <div class="text-center md:text-right">
+                      <h3 class="text-lg font-semibold mb-3">في الموقع</h3>
+                      <ul class="space-y-2">
+                          <li><a href="#" class="hover:underline">الرئيسية</a></li>
+                          <li><a href="#" class="hover:underline">مياهنا</a></li>
+                          <li><a href="#" class="hover:underline">منتجاتنا</a></li>
+                          <li><a href="#" class="hover:underline">لماذا نحن</a></li>
+                          <li><a href="#" class="hover:underline">كيف تبدأ</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+
+          <!-- App Download Section -->
+          <div
+              class="md:col-span-5 py-5 md:py-0 text-center md:text-right px-4 md:px-[23px] h-auto md:h-[202px] w-full md:w-[429px] rounded-[20px] bg-[#FFFFFF1A] flex flex-col justify-center items-center mx-auto">
+              <p class="text-lg mb-4 px-2 md:px-0">
+                  حمل تطبيقنا الآن وابدأ بالتميز! زجاجات مياه مصممة لك، تجربة سهلة وممتعة بين يديك 💧
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                  <button
+                      class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                      <img src="../assests/images/Apple_App_Store.svg" alt="App Store" width="20">
+                      App Store
+                  </button>
+                  <button
+                      class="flex items-center gap-2 w-full sm:w-[180px] justify-center px-4 py-2 bg-white text-black rounded-lg shadow">
+                      <img src="../assests/images/Google_Play.svg" alt="Play Store" width="20">
+                      Play Store
+                  </button>
+              </div>
+          </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="max-w-[1536px] mx-auto mt-10 md:mt-20">
+          <p class="text-center md:text-right mx-4 md:mx-36 text-sm md:text-base">جميع الحقوق محفوظة لدى شركة المتحدة
+              للمرطبات 2024 ©</p>
+      </div>
+  </footer>
+<!-- 
+  <script>
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      mobileMenuButton.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (event) => {
+          if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+              mobileMenu.classList.add('hidden');
+          }
+      });
+
+      // Include your existing dropdown functions here
+      function setupDropdown(toggleId, dropdownId) {
+          // ... your existing dropdown code ...
+      }
+
+      function handleNotificationPopup(toggleId, popupId) {
+          // ... your existing notification code ...
+      }
+  </script> -->
+
+
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+
+  // Include your existing dropdown functions here
+  function setupDropdown(toggleId, dropdownId) {
+    // ... your existing dropdown code ...
+  }
+
+  function handleNotificationPopup(toggleId, popupId) {
+    // ... your existing notification code ...
+  }
+</script>
+
+
+  <style>
+    #magnifier {
+        background-size: 500% 500%;
+        background-position: 0 0;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    #magnifier::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid white;
+        border-radius: 50%;
+        box-sizing: border-box;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('fileInput');
+    const mainImage = document.getElementById('main-image');
+    const magnifier = document.getElementById('magnifier');
+    const zoomLevel = 2;
+
+    // Handle image upload
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                mainImage.src = e.target.result;
+                magnifier.style.backgroundImage = `url(${e.target.result})`;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Magnifier functionality
+    mainImage.addEventListener('mousemove', (e) => {
+        if (mainImage.src.includes('placeholder.jpg')) return;
+
+        const container = mainImage.getBoundingClientRect();
+        const x = e.clientX - container.left;
+        const y = e.clientY - container.top;
+        
+        // Show magnifier
+        magnifier.style.display = 'block';
+        
+        // Position magnifier
+        magnifier.style.left = `${x}px`;
+        magnifier.style.top = `${y}px`;
+
+        // Calculate background position
+        const bgX = (x / container.width) * 100;
+        const bgY = (y / container.height) * 100;
+        magnifier.style.backgroundPosition = `${bgX}% ${bgY}%`;
+    });
+
+    mainImage.addEventListener('mouseleave', () => {
+        magnifier.style.display = 'none';
+    });
+});
+</script>
+
+</body>
+
+</html>

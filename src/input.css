@@ -1,0 +1,114 @@
+@import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap');
+ */
+
+ @font-face {
+    font-family: 'MyCustomFont';
+    src: url('../assests/fonts/NotoSansArabic-VariableFont_wdth\,wght.ttf') format('truetype');
+    /* font-weight: normal;
+    font-style: normal; */
+}
+ 
+body{
+    font-family: "MyCustomFont", sans-serif;
+}
+.bg-primary {
+    @apply bg-[#4E5EA5]; /* Tailwind utility */
+}
+.bg-secondary01 {
+    @apply bg-[#71C19B]; /* Tailwind utility */
+}
+
+
+.text-primary {
+    @apply text-[#FFFFFF]
+}
+.text-secondary01 {
+    @apply text-[#4E5EA5]
+}
+.text-secondary02 {
+    @apply text-[#71C19B]
+}
+.ubc-btn-primary {
+    @apply rounded-[10px];
+    @apply py-3;
+    @apply px-6;
+    @apply font-[400];
+    @apply text-[16px]; 
+    @apply cursor-pointer
+}
+.ubc-btn-secondary {
+    @apply rounded-[12px];
+    @apply py-5;
+    @apply px-6;
+    @apply cursor-pointer;
+    @apply border-[#E3E6EA];
+}
+
+.bg-secondary {
+    @apply bg-[#F8F9FB]; /* Tailwind utility */
+}
+
+.ubc-btn-primary:hover {
+    @apply bg-[#71C19B];
+    @apply cursor-pointer; 
+    @apply border-[#71C19B];
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Dimming effect */
+    z-index: 999;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+
+.text-secondary {
+    @apply text-gray-700;
+}
+
+.bg-main {
+    @apply bg-gray-100;
+}
+
+.otp-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  .otp-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .otp-input:focus {
+    border-color: black;
+  }
+
+  .otp-error {
+    border-color: red;
+  }
+
+  .gtranslate_wrapper .gt_selector {
+    border: none;
+    outline: none;
+  }
